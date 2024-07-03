@@ -115,10 +115,13 @@ body {
   border-left-color: #33399b;
   border-bottom-color: #33399b;
 }
-
+._hover03{
+  display: none;
+}
 ._hover03:hover {
   background-color: #33399b;
   color: #FFFFFF;
+
 }
 ._hover03:hover a {
   color: #FFFFFF;
@@ -265,6 +268,7 @@ body {
   line-height: 21px;
   letter-spacing: -0.14px;
   margin-bottom: 4px;
+  display: none;
 }
 .pop-user-set__mail {
   color: #94A6BE;
@@ -272,12 +276,14 @@ body {
   line-height: 21px;
   letter-spacing: -0.14px;
   margin-bottom: 10px;
+  display: none;
 }
 .pop-user-set__theme {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  display: none;
 }
 .pop-user-set__theme p {
   color: #000;
