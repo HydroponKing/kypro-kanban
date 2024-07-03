@@ -17,7 +17,7 @@ const Header = () => (
         </div>
         <nav className="header__nav">
           <button className="header__btn-main-new _hover01" id="btnMainNew">
-            <a href="#popNewCard">Создать новую задачу</a>
+            <a href="#popNewCard">Создать новую задачу</a>//
           </button>
           <a className="header__user _hover02" href="#user-set-target">
             Ivan Ivanov
