@@ -7,12 +7,12 @@ const Header = () => (
       <div className="header__block">
         <div className="header__logo _show _light">
           <a href="" target="_self">
-            <img alt="logo" src="images/logo.png" />
+            <img alt="logo" src="public/logo.png" />
           </a>
         </div>
         <div className="header__logo _dark">
           <a href="" target="_self">
-            <img alt="logo" src="images/logo_dark.png" />
+            <img alt="logo" src="public/logo_dark.png" />
           </a>
         </div>
         <nav className="header__nav">
