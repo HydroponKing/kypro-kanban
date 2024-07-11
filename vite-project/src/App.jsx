@@ -15,7 +15,7 @@ const App = () => (
     <PopBrowse />
     <PopNewCard />
     <PopExit />
-    <PopUser />
+    {/*<PopUser /> */}
   </div>
 );
 
