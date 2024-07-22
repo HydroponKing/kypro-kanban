@@ -97,7 +97,7 @@ body {
   height: 100%;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: #000000;
-  
+  background-color: #eaebee;
 }
 
 .wrapper {
@@ -847,13 +847,18 @@ body {
   padding: 25px 0 49px;
 }
 .main__content {
-  width: 100%;
   display: flex;
+  justify-content: space-between; /* Распределяет колонки равномерно */
+  flex-wrap: wrap; /* Позволяет колонкам переноситься на новую строку при необходимости */
+  padding: 0 100px; /* Отступы слева и справа */
+  
+  
 }
 .main__column {
-  width: 20%;
-  margin: 0 auto;
-  display: block;
+  flex: 1 0 21%; /* Настраиваем ширину колонок и разрешаем их перенос на новую строку при необходимости */
+  max-width: 220px; /* Ограничиваем максимальную ширину */
+  margin: 10px; /* Отступы вокруг колонок */
+  box-sizing: border-box; /* Учитываем отступы в ширине и высоте */
 }
 
 .column__title {
