@@ -3,11 +3,22 @@ import React, { useState } from 'react';
 //import './Header.css';
 import PopUser from '../popups/PopUser/PopUser';
 
-const Header = () => {
+const Header = ({ onCardAdd }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleUserClick = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const handleAddTaskClick = () => {
+    const newCard = {
+      id: Date.now(),
+      title: 'Новая задача',
+      description: 'Описание новой задачи',
+      date: new Date().toISOString().split('T')[0], // текущая дата в формате YYYY-MM-DD
+      status: 'Без статуса'
+    };
+    onCardAdd(newCard);
   };
 
   return (
@@ -25,8 +36,8 @@ const Header = () => {
             </a>
           </div>
           <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <button className="header__btn-main-new _hover01" id="btnMainNew" onClick={handleAddTaskClick}>
+              Создать новую задачу
             </button>
             <div className="header__user _hover02" onClick={handleUserClick}>
               Ivan Ivanov

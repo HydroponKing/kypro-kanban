@@ -1,13 +1,10 @@
+// src/App.jsx
 import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
-import PopNewCard from './components/popups/PopNewCard/PopNewCard';
 import PopExit from './components/popups/PopExit/PopExit';
-import PopUser from './components/popups/PopUser/PopUser';
 import { cards as initialCards } from './data'; // Импорт начального списка карточек
-
-
 import './App.css';
 
 function App() {
@@ -19,12 +16,10 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header onCardAdd={addCard} />
       <Main cards={cards} />
       <PopBrowse />
-      <PopNewCard addCard={addCard} />
       <PopExit />
-      {/*<PopUser /> */}
     </div>
   );
 }
