@@ -1,18 +1,19 @@
+// src/components/Card/Card.jsx
 import React from 'react';
 import './Card.css';
 
 const Card = ({ card }) => {
-  let themeClass = '';
+  let topicClass = '';
 
-  if (card.theme === 'Web Design') {
-    themeClass = '_orange';
+  if (card.topic === 'Web Design') {
+    topicClass = '_orange';
   }
 
   return (
     <div className="cards__card">
       <div className="card__group">
-        <div className={`card__theme ${themeClass}`}>
-          <p className={`theme-text ${themeClass}`}>{card.theme}</p>
+        <div className={`card__theme ${topicClass}`}>
+          <p className={`topic-text ${topicClass}`}>{card.topic}</p>
         </div>
         <div className="card__btn">
           <div></div>
