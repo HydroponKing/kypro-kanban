@@ -13,8 +13,8 @@ const Header = ({ onCardAdd }) => {
   const handleAddTaskClick = () => {
     const newCard = {
       id: Date.now(),
+      topic: 'Web Design',
       title: 'Новая задача',
-      description: 'Описание новой задачи',
       date: new Date().toISOString().split('T')[0], // текущая дата в формате YYYY-MM-DD
       status: 'Без статуса'
     };

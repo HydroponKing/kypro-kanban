@@ -144,10 +144,10 @@ body {
   display: block;
 }
 
-._orange .card__theme, 
-._orange .card__theme p {
-  background-color: #FFE4C2;
-  color: #FF6D00;
+._purple .card__theme, 
+._purple .card__theme p {
+  background-color: #e6c0f1;
+  color: #b35ad6;
 }
 
 ._active-category {

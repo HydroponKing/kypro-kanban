@@ -6,7 +6,13 @@ const Card = ({ card }) => {
   let topicClass = '';
 
   if (card.topic === 'Web Design') {
-    topicClass = '_orange';
+    topicClass = '_purple';
+  }
+  if (card.topic === 'Copywritting') {
+    topicClass = '_purple';
+  }
+  if (card.topic === 'Research') {
+    topicClass = '_purple';
   }
 
   return (
