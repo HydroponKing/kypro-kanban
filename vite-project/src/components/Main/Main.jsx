@@ -1,6 +1,6 @@
 import React from "react";
 import Column from "../Column/Column";
-//import { cards as initialCards } from "../../data"; //импорт больше не нужен.
+import { MainContent } from './Main.styled';
 
 const Main = ({ cards }) => {
   const statusList = [
@@ -12,7 +12,7 @@ const Main = ({ cards }) => {
   ];
 
   return (
-    <div className="main__content">
+    <MainContent>
       {statusList.map((status) => (
         <Column
           key={status}
@@ -20,7 +20,7 @@ const Main = ({ cards }) => {
           cardList={cards.filter(card => card.status === status)}
         />
       ))}
-    </div>
+    </MainContent>
   );
 };
 
