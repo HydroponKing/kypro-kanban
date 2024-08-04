@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
@@ -35,20 +35,6 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  width: 220px;
-  height: 130px;
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: stretch;
-  padding: 15px 13px 19px;
-  margin-bottom: 15px; /* Добавляем отступ между карточками */
-  border: 1px solid transparent; /* Добавляем обводку, которая будет изменяться в зависимости от темы */
 }
 
 .read-the-docs {
@@ -121,10 +107,12 @@ body {
   background-color: #33399b;
 }
 
-._hover02:hover, .header__user:hover {
+._hover02:hover,
+.header__user:hover {
   color: #33399b;
 }
-._hover02:hover::after, .header__user:hover::after {
+._hover02:hover::after,
+.header__user:hover::after {
   border-left-color: #33399b;
   border-bottom-color: #33399b;
 }
@@ -142,12 +130,6 @@ body {
 .pop-new-card:target,
 .pop-browse:target {
   display: block;
-}
-
-._purple .card__theme, 
-._purple .card__theme p {
-  background-color: #e6c0f1;
-  color: #b35ad6;
 }
 
 ._active-category {
@@ -391,7 +373,8 @@ body {
   display: flex;
   flex-direction: column;
 }
-.form-new__input, .form-new__area {
+.form-new__input,
+.form-new__area {
   width: 100%;
   outline: none;
   padding: 14px;
@@ -402,14 +385,16 @@ body {
   line-height: 1;
   letter-spacing: -0.14px;
 }
-.form-new__input::-moz-placeholder, .form-new__area::-moz-placeholder {
+.form-new__input::-moz-placeholder,
+.form-new__area::-moz-placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;
   color: #94A6BE;
   letter-spacing: -0.14px;
 }
-.form-new__input::placeholder, .form-new__area::placeholder {
+.form-new__input::placeholder,
+.form-new__area::placeholder {
   font-weight: 400;
   font-size: 14px;
   line-height: 1px;
@@ -654,18 +639,21 @@ body {
   display: block;
   margin-bottom: 20px;
 }
-.pop-browse__btn-browse, .pop-browse__btn-edit {
+.pop-browse__btn-browse,
+.pop-browse__btn-edit {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
 }
-.pop-browse__btn-browse button, .pop-browse__btn-edit button {
+.pop-browse__btn-browse button,
+.pop-browse__btn-edit button {
   height: 30px;
   margin-bottom: 10px;
   padding: 0 14px;
 }
-.pop-browse__btn-browse .btn-group button, .pop-browse__btn-edit .btn-group button {
+.pop-browse__btn-browse .btn-group button,
+.pop-browse__btn-edit .btn-group button {
   margin-right: 8px;
 }
 
@@ -884,17 +872,6 @@ body {
   animation-duration: 500ms;
   animation-timing-function: linear;
 }
-.cards__card {
-  width: 220px;
-  height: 130px;
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: stretch;
-  padding: 15px 13px 19px;
-}
 
 .card__group {
   width: 100%;
@@ -903,32 +880,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.card__theme {
-  width: auto;
-  height: 20px;
-  padding: 5px 14px;
-  border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center
-}
-._orange {
-  background-color: #FFE4C2;
-  color: #FF6D00;
-  border-color: #FF6D00;
-}
-
-._green {
-  background-color: #B4FDD1;
-  color: #06B16E;
-  border-color: #06B16E;
-}
-
-._purple {
-  background-color: #E9D4FF;
-  color: #9A48F1;
-  border-color: #9A48F1;
 }
 
 .card__theme p {
@@ -957,18 +908,7 @@ body {
   color: #000000;
   margin-bottom: 10px;
 }
-.card__content {
-  height: 64px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-.card__date {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
+
 .card__date svg {
   width: 13px;
 }
@@ -1031,7 +971,9 @@ body {
     max-width: 340px;
     width: 100%;
   }
-  .calendar__ttl, .calendar__nav, .calendar__period {
+  .calendar__ttl,
+  .calendar__nav,
+  .calendar__period {
     padding: 0;
   }
   .calendar .date-create {
@@ -1125,14 +1067,17 @@ body {
   .pop-browse__calendar {
     width: 100%;
   }
-  .pop-browse__btn-browse button, .pop-browse__btn-edit button {
+  .pop-browse__btn-browse button,
+  .pop-browse__btn-edit button {
     width: 100%;
     height: 40px;
   }
-  .pop-browse__btn-browse .btn-group, .pop-browse__btn-edit .btn-group {
+  .pop-browse__btn-browse .btn-group,
+  .pop-browse__btn-edit .btn-group {
     width: 100%;
   }
-  .pop-browse__btn-browse .btn-group button, .pop-browse__btn-edit .btn-group button {
+  .pop-browse__btn-browse .btn-group button,
+  .pop-browse__btn-edit .btn-group button {
     margin-right: 0px;
   }
   .form-browse__area {
@@ -1160,6 +1105,3 @@ body {
     display: block;
   }
 }
-
-
-

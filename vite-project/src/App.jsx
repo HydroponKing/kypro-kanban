@@ -16,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+
       <Header onCardAdd={addCard} />
       <Main cards={cards} />
       <PopBrowse />

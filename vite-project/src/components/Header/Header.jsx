@@ -29,7 +29,7 @@ const Header = ({ onCardAdd }) => {
             <a href="" target="_self">
               <img alt="logo" src="public/logo.png" />
             </a>
-          </div>
+          </div>  
           <div className="header__logo _dark">
             <a href="" target="_self">
               <img alt="logo" src="public/logo_dark.png" />

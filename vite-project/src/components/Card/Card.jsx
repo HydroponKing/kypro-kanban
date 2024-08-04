@@ -1,35 +1,49 @@
-// src/components/Card/Card.jsx
 import React from 'react';
-import './Card.css';
+import {
+  CardContainer,
+  CardGroup,
+  CardTheme,
+  TopicText,
+  CardBtn,
+  CardContent,
+  CardTitle,
+  CardDate
+} from './Card.styled';
+
+// Создаем объект для хранения стилей для каждой темы
+const cardStyles = {
+  'Web Design': {
+    backgroundColor: "#e9d4ff",
+    color: "#9a48f1",
+  },
+  'Copywritting': {
+    backgroundColor: "#e9d4ff",
+    color: "#9a48f1",
+  },
+  'Research': {
+    backgroundColor: "#e9d4ff",
+    color: "#9a48f1",
+  }
+};
 
 const Card = ({ card }) => {
-  let topicClass = '';
-
-  if (card.topic === 'Web Design') {
-    topicClass = '_purple';
-  }
-  if (card.topic === 'Copywritting') {
-    topicClass = '_purple';
-  }
-  if (card.topic === 'Research') {
-    topicClass = '_purple';
-  }
+  const style = cardStyles[card.topic] || {};
 
   return (
-    <div className="cards__card">
-      <div className="card__group">
-        <div className={`card__theme ${topicClass}`}>
-          <p className={`topic-text ${topicClass}`}>{card.topic}</p>
-        </div>
-        <div className="card__btn">
+    <CardContainer>
+      <CardGroup>
+        <CardTheme style={style}>
+          <TopicText style={style}>{card.topic}</TopicText>
+        </CardTheme>
+        <CardBtn>
           <div></div>
           <div></div>
           <div></div>
-        </div>
-      </div>
-      <div className="card__content">
-        <h3 className="card__title">{card.title}</h3>
-        <div className="card__date">
+        </CardBtn>
+      </CardGroup>
+      <CardContent>
+        <CardTitle>{card.title}</CardTitle>
+        <CardDate>
           <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
             <g clipPath="url(#clip0_1_415)">
               <path d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z" stroke="#94A6BE" strokeWidth="0.8" strokeLinejoin="round"></path>
@@ -42,9 +56,9 @@ const Card = ({ card }) => {
             </defs>
           </svg>
           <p>{card.date}</p>
-        </div>
-      </div>
-    </div>
+        </CardDate>
+      </CardContent>
+    </CardContainer>
   );
 };
 
