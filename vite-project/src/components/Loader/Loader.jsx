@@ -1,12 +1,19 @@
-// src/components/Loader/Loader.jsx
-import React from 'react';
-import './Loader.css';
+import React, { useEffect } from 'react';
+import { LoaderWrapper } from './Loader.styled';
 
-const Loader = () => {
+const Loader = ({ setCards, setLoading, initialCards }) => {
+  useEffect(() => {
+    // Имитируем загрузку данных с задержкой
+    setTimeout(() => {
+      setCards(initialCards);
+      setLoading(false); // Устанавливаем загрузку в false после загрузки данных
+    }, 2000); // Замените 2000 на нужное время загрузки в миллисекундах
+  }, [setCards, setLoading, initialCards]);
+
   return (
-    <div className="loader">
+    <LoaderWrapper>
       <p>Страница загружается...</p>
-    </div>
+    </LoaderWrapper>
   );
 };
 
