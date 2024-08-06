@@ -10,30 +10,12 @@ import {
   CardDate
 } from './Card.styled';
 
-// Создаем объект для хранения стилей для каждой темы
-const cardStyles = {
-  'Web Design': {
-    backgroundColor: "#e9d4ff",
-    color: "#9a48f1",
-  },
-  'Copywritting': {
-    backgroundColor: "#e9d4ff",
-    color: "#9a48f1",
-  },
-  'Research': {
-    backgroundColor: "#e9d4ff",
-    color: "#9a48f1",
-  }
-};
-
 const Card = ({ card }) => {
-  const style = cardStyles[card.topic] || {};
-
   return (
     <CardContainer>
       <CardGroup>
-        <CardTheme style={style}>
-          <TopicText style={style}>{card.topic}</TopicText>
+        <CardTheme topic={card.topic}>
+          <TopicText>{card.topic}</TopicText>
         </CardTheme>
         <CardBtn>
           <div></div>

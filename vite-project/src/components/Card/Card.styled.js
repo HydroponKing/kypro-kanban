@@ -1,4 +1,24 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+// Создаем объект для хранения стилей для каждой темы
+export const topicStyles = {
+  'Web Design': {
+    backgroundColor: "#e9d4ff",
+    color: "#9a48f1",
+  },
+  'Copywritting': {
+    backgroundColor: "#ffe4c2",
+    color: "#ff6d00",
+  },
+  'Research': {
+    backgroundColor: "#b4fdd1",
+    color: "#06b16e",
+  }
+};
+
+const getCardThemeStyles = (topic) => {
+  return topicStyles[topic] || {};
+};
 
 export const CardContainer = styled.div`
   width: 220px;
@@ -31,6 +51,11 @@ export const CardTheme = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${({ topic }) => css`
+    background-color: ${getCardThemeStyles(topic).backgroundColor};
+    color: ${getCardThemeStyles(topic).color};
+  `}
 `;
 
 export const TopicText = styled.p`
