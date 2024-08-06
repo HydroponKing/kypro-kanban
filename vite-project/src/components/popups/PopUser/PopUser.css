@@ -1,113 +1,99 @@
-/* src/components/popups/PopUser/PopUser.css */
 .user-modal {
-    position: absolute;
-    top: 70px; /* Позиция модального окна */
-    right: 10px; /* Позиция модального окна */
-    width: 230px; /* Ширина модального окна */
-    background-color: white;
-    border: 1px solid #d4dbe5; /* Обводка */
-    box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21); /* Тень */
-    z-index: 1000;
-    border-radius: 10px; /* Закругленные углы */
-    padding: 20px; /* Внутренний отступ */
-    text-align: center; /* Центрирование текста */
-  }
-  
-  .user-modal-content p {
-    margin: 10px 0; /* Отступы между абзацами */
-  }
-  
-  .user-modal-content button {
-    margin-top: 10px;
-    display: block;
-    width: 100%;
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .user-modal-content button:hover {
-    background: #0056b3;
-  }
-  
-  .user-modal-content input[type="checkbox"] {
-    margin-left: 10px;
-  }
-  
-  .pop-user-set__name {
-    color: #000;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 21px;
-    letter-spacing: -0.14px;
-    margin-bottom: 4px;
-  }
-  
-  .pop-user-set__mail {
-    color: #94a6be;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.14px;
-    margin-bottom: 20px;
-  }
-  
-  .pop-user-set__theme {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
-  
-  .pop-user-set__theme p {
-    color: #000;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.14px;
-  }
-  
-  .pop-user-set__theme input[type=checkbox] {
-    position: relative;
-    width: 24px;
-    height: 13px;
-    border-radius: 100px;
-    background: #eaeef6;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-  
-  .pop-user-set__theme input[type=checkbox]::before {
-    content: "";
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background-color: #94a6be;
-    transition: 0.5s;
-  }
-  
-  .pop-user-set__theme input:checked[type=checkbox]::before {
-    left: 12px;
-  }
-  
-  .pop-user-set button {
-    width: 100px;
-    height: 30px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .pop-user-set button:hover {
-    background: #0056b3;
-  }
-  
+  position: absolute;
+  top: 61px;
+  right: 10px;
+  width: 213px;
+  background-color: white;
+  border: 1px solid #e6ecf5;
+  box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.1);
+  z-index: 1000;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.user-modal-content p {
+  margin: 10px 0;
+}
+
+.pop-user-set__name {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  margin-bottom: 8px;
+}
+
+.pop-user-set__mail {
+  color: #a0aec0;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  margin-bottom: 20px;
+}
+
+.pop-user-set__theme {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pop-user-set__theme p {
+  color: #000;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -0.14px;
+}
+
+.pop-user-set__theme input[type=checkbox] {
+  position: relative;
+  width: 24px;
+  height: 13px;
+  border-radius: 100px;
+  background: #eaeef6;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.pop-user-set__theme input[type=checkbox]::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: #94a6be;
+  transition: 0.5s;
+}
+
+.pop-user-set__theme input:checked[type=checkbox]::before {
+  left: 12px;
+}
+
+.user-modal-content button {
+  margin-bottom: 10px;
+  width: 72px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #565eef;
+  border-radius: 4px;
+  color: #565eef;
+  cursor: pointer;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 10px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.user-modal-content button:hover {
+  background: #565eef;
+  color: #ffffff;
+}
