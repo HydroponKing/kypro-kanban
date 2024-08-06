@@ -1,20 +1,21 @@
 import React from "react";
 import Card from "../Card/Card";
+import { ColumnWrapper, ColumnTitle, Cards, CardsItem } from './Column.styled';
 
 const Column = ({ title, cardList }) => {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <ColumnWrapper>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </ColumnTitle>
+      <Cards>
         {cardList.map((card) => (
-          <div key={card.id} className="cards__item">
+          <CardsItem key={card.id}>
             <Card card={card} />
-          </div>
+          </CardsItem>
         ))}
-      </div>
-    </div>
+      </Cards>
+    </ColumnWrapper>
   );
 };
 
