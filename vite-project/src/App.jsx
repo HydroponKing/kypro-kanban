@@ -7,7 +7,8 @@ import Signup from './components/Signup/Signup';
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
 import Loader from './components/Loader/Loader';
 import Exit from './components/Exit/Exit';
-import CardModal from './components/CardModal/CardModal'; // Импортируем CardModal
+import CardModal from './components/CardModal/CardModal';
+import NotFound from './components/NotFound/NotFound'; // Импортируем компонент 404
 import { cards as initialCards } from './data';
 import './App.css';
 
@@ -49,9 +50,10 @@ function App() {
             }
           >
             <Route path="exit" element={<Exit onLogout={handleLogout} />} />
-            <Route path="card/:cardId" element={<CardModal cards={cards} />} /> {/* Новый маршрут для просмотра карточки */}
+            <Route path="card/:cardId" element={<CardModal cards={cards} />} />
           </Route>
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="404" element={<NotFound />} /> {/* Новый маршрут для страницы 404 */}
+          <Route path="*" element={<Navigate to="/404" />} /> {/* Перенаправляем все несуществующие маршруты на 404 */}
         </Routes>
       </div>
     </Router>
