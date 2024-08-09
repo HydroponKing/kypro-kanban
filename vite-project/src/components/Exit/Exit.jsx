@@ -1,19 +1,12 @@
 import React from 'react';
-import {
-  ExitWrapper,
-  ExitContainer,
-  ExitTitle,
-  ExitButtonGroup,
-  ExitButtonYes,
-  ExitButtonNo,
-} from './Exit.styled';
+import { ExitWrapper, ExitContainer, ExitTitle, ExitButtonGroup, ExitButtonYes, ExitButtonNo } from './Exit.styled';
 import { useNavigate } from 'react-router-dom';
 
-const Exit = () => {
+const Exit = ({ onLogout }) => {
   const navigate = useNavigate();
 
   const handleYesClick = () => {
-    // Логика выхода из аккаунта
+    onLogout(); // Логика выхода из аккаунта
     navigate('/signin');
   };
 
