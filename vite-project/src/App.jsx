@@ -5,15 +5,15 @@ import Main from './components/Main/Main';
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
-import PopExit from './components/popups/PopExit/PopExit';
 import Loader from './components/Loader/Loader';
-import { cards as initialCards } from './data'; // Импорт начального списка карточек
+import Exit from './components/Exit/Exit'; // Импортируйте Exit
+import { cards as initialCards } from './data';
 import './App.css';
 
 function App() {
-  const [cards, setCards] = useState([]); // Изначально пустой массив карточек
-  const [loading, setLoading] = useState(true); // Состояние для отслеживания загрузки
-  const [isAuth, setIsAuth] = useState(false); // Состояние авторизации
+  const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(true);
 
   const addCard = (newCard) => {
     setCards([...cards, { ...newCard, status: 'Без статуса' }]);
@@ -37,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/signin" element={<Signin onLogin={handleLogin} />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/exit" element={<Exit onLogout={handleLogout} />} /> {/* Новый маршрут для выхода */}
           <Route
             path="/"
             element={
@@ -45,7 +46,6 @@ function App() {
                   <Header onCardAdd={addCard} onLogout={handleLogout} />
                   <Main cards={cards} />
                   <PopBrowse />
-                  <PopExit />
                 </>
               ) : (
                 <Navigate to="/signin" />
