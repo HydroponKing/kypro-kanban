@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CardContainer,
   CardGroup,
@@ -11,8 +12,14 @@ import {
 } from './Card.styled';
 
 const Card = ({ card }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/card/${card.id}`);
+  };
+
   return (
-    <CardContainer>
+    <CardContainer onClick={handleCardClick}>
       <CardGroup>
         <CardTheme topic={card.topic}>
           <TopicText>{card.topic}</TopicText>

@@ -7,6 +7,7 @@ import Signup from './components/Signup/Signup';
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
 import Loader from './components/Loader/Loader';
 import Exit from './components/Exit/Exit';
+import CardModal from './components/CardModal/CardModal'; // Импортируйте CardModal
 import { cards as initialCards } from './data';
 import './App.css';
 
@@ -47,7 +48,8 @@ function App() {
               )
             }
           >
-            <Route path="exit" element={<Exit onLogout={handleLogout} />} /> {/* Вложенный маршрут для модального окна */}
+            <Route path="exit" element={<Exit onLogout={handleLogout} />} />
+            <Route path="card/:cardId" element={<CardModal cards={cards} />} /> {/* Новый маршрут для просмотра карточки */}
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
@@ -62,7 +64,7 @@ function Layout({ onCardAdd, onLogout, cards }) {
       <Header onCardAdd={onCardAdd} onLogout={onLogout} />
       <Main cards={cards} />
       <PopBrowse />
-      <Outlet /> {/* Outlet для отображения модального окна */}
+      <Outlet />
     </>
   );
 }
