@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Calendar from '../Calendar/Calendar';
+import Calendar from '../../components/Calendar/Calendar';
 import {
   CardModalWrapper,
   CardModalContainer,

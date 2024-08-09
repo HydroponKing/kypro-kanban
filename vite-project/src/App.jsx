@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
-import Signin from './components/Signin/Signin';
-import Signup from './components/Signup/Signup';
+import Signin from './pages/Signin/Signin';  // Обновленный путь
+import Signup from './components/Signup/Signup';  // Путь не изменился
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
 import Loader from './components/Loader/Loader';
-import Exit from './components/Exit/Exit';
-import CardModal from './components/CardModal/CardModal';
-import NotFound from './components/NotFound/NotFound'; // Импортируем компонент 404
+import Exit from './pages/Exit/Exit';  // Обновленный путь
+import CardModal from './pages/CardModal/CardModal';  // Обновленный путь
+import NotFound from './pages/NotFound/NotFound';  // Обновленный путь
 import { cards as initialCards } from './data';
 import './App.css';
 
