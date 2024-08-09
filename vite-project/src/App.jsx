@@ -7,7 +7,7 @@ import Signup from './components/Signup/Signup';
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
 import Loader from './components/Loader/Loader';
 import Exit from './components/Exit/Exit';
-import CardModal from './components/CardModal/CardModal'; // Импортируйте CardModal
+import CardModal from './components/CardModal/CardModal'; // Импортируем CardModal
 import { cards as initialCards } from './data';
 import './App.css';
 
