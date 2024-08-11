@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';  // Импортируем компонент Link из react-router-dom
 import {
   Wrapper,
   ContainerSignup,
@@ -28,7 +29,7 @@ const Signup = () => {
                 <a href="../main.html">Зарегистрироваться</a>
               </ModalButton>
               <ModalFormGroup>
-                <p>Уже есть аккаунт? <a href="signin.html">Войдите здесь</a></p>
+                <p>Уже есть аккаунт? <Link to="/signin">Войдите здесь</Link></p> {/* Используем Link для перехода */}
               </ModalFormGroup>
             </ModalFormLogin>
           </ModalBlock>

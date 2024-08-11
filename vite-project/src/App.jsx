@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import Signin from './pages/Signin/Signin';  // Обновленный путь
-import Signup from './components/Signup/Signup';  // Путь не изменился
+import Signup from './pages/Signup/Signup';  // Путь не изменился
 import PopBrowse from './components/popups/PopBrowse/PopBrowse';
 import Loader from './components/Loader/Loader';
 import Exit from './pages/Exit/Exit';  // Обновленный путь
