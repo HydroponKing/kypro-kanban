@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Signin from './pages/Signin/Signin';
@@ -8,6 +7,7 @@ import CardModal from './pages/CardModal/CardModal';
 import NotFound from './pages/NotFound/NotFound';
 import HomePage from './pages/HomePage/HomePage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import routes from './components/routes/routes'; // Импортируем маршруты
 import './App.css';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route
-            path="/"
+            path={routes.home}
             element={
               <PrivateRoute isAuth={isAuth}>
                 <HomePage onLogout={handleLogout} />
@@ -34,19 +34,19 @@ function App() {
             }
           />
           <Route
-            path="/homepage"
+            path={routes.homepage}
             element={
               <PrivateRoute isAuth={isAuth}>
                 <HomePage onLogout={handleLogout} />
               </PrivateRoute>
             }
           />
-          <Route path="/signin" element={<Signin onLogin={handleLogin} />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/exit" element={<Exit onLogout={handleLogout} />} />
-          <Route path="/card/:cardId" element={<CardModal />} />
-          <Route path="404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path={routes.signin} element={<Signin onLogin={handleLogin} />} />
+          <Route path={routes.signup} element={<Signup />} />
+          <Route path={routes.exit} element={<Exit onLogout={handleLogout} />} />
+          <Route path={routes.card} element={<CardModal />} />
+          <Route path={routes.notFound} element={<NotFound />} />
+          <Route path={routes.wildcard} element={<Navigate to={routes.notFound} />} />
         </Routes>
       </div>
     </Router>
