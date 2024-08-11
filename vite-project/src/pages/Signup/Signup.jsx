@@ -26,7 +26,7 @@ const Signup = () => {
               <ModalInput type="text" name="login" id="loginReg" placeholder="Эл. почта" />
               <ModalInput type="password" name="password" id="passwordFirst" placeholder="Пароль" />
               <ModalButton id="SignUpEnter">
-                <a href="../main.html">Зарегистрироваться</a>
+                <a><Link to="/HomePage">Зарегистрироваться</Link></a>
               </ModalButton>
               <ModalFormGroup>
                 <p>Уже есть аккаунт? <Link to="/signin">Войдите здесь</Link></p> {/* Используем Link для перехода */}

@@ -35,7 +35,7 @@ const Signin = () => {
                 placeholder="Пароль"
               />
               <ModalButton id="btnEnter">
-                <Link to="/HomePage">Войти</Link>{" "}
+                <Link to="/HomePage">Войти</Link>
               </ModalButton>
               <ModalFormGroup>
                 <p>Нужно зарегистрироваться?</p>

@@ -7,6 +7,7 @@ import Exit from './pages/Exit/Exit';
 import CardModal from './pages/CardModal/CardModal';
 import NotFound from './pages/NotFound/NotFound';
 import HomePage from './pages/HomePage/HomePage';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { cards as initialCards } from './data';
 import './App.css';
 
@@ -38,21 +39,17 @@ function App() {
           <Route
             path="/"
             element={
-              isAuth ? (
+              <PrivateRoute isAuth={isAuth}>
                 <HomePage onCardAdd={addCard} onLogout={handleLogout} cards={cards} />
-              ) : (
-                <Navigate to="/signin" />
-              )
+              </PrivateRoute>
             }
           />
           <Route
             path="/homepage"
             element={
-              isAuth ? (
+              <PrivateRoute isAuth={isAuth}>
                 <HomePage onCardAdd={addCard} onLogout={handleLogout} cards={cards} />
-              ) : (
-                <Navigate to="/signin" />
-              )
+              </PrivateRoute>
             }
           />
           <Route path="/signin" element={<Signin onLogin={handleLogin} />} />
