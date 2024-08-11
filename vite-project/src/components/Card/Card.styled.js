@@ -3,12 +3,12 @@ import styled, { css } from 'styled-components';
 // Создаем объект для хранения стилей для каждой темы
 export const topicStyles = {
   'Web Design': {
-    backgroundColor: "#e9d4ff",
-    color: "#9a48f1",
-  },
-  'Copywritting': {
     backgroundColor: "#ffe4c2",
     color: "#ff6d00",
+  },
+  'Copywritting': {
+    backgroundColor: "#e9d4ff",
+    color: "#9a48f1",
   },
   'Research': {
     backgroundColor: "#b4fdd1",
