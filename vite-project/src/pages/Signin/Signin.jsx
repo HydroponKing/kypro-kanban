@@ -35,11 +35,11 @@ const Signin = () => {
                 placeholder="Пароль"
               />
               <ModalButton id="btnEnter">
-                <Link to="/HomePage">Войти</Link>
+                <Link to="/">Войти</Link> 
               </ModalButton>
               <ModalFormGroup>
                 <p>Нужно зарегистрироваться?</p>
-                <Link to="/signup">Регистрируйтесь здесь</Link>{" "}
+                <Link to="/signup">Регистрируйтесь здесь</Link>
               </ModalFormGroup>
             </ModalFormLogin>
           </ModalBlock>

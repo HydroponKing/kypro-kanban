@@ -32,7 +32,7 @@ const HomePage = ({ onLogout }) => {
       <Header onCardAdd={addCard} onLogout={onLogout} />
       <Main cards={cards} />
       <PopBrowse />
-      <Outlet />
+      <Outlet context={{ cards }} />
     </>
   );
 };

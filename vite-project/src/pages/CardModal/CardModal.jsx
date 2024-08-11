@@ -1,5 +1,6 @@
+// pages/CardModal/CardModal.jsx
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import {
   CardModalWrapper,
@@ -15,12 +16,14 @@ import {
   CardModalContent
 } from './CardModal.styled';
 
-const CardModal = ({ cards }) => {
+const CardModal = () => {
   const { cardId } = useParams();
   const navigate = useNavigate();
+  const { cards } = useOutletContext(); // Получаем cards из Outlet
+
   const card = cards.find(card => card.id === parseInt(cardId));
 
-  if (!card) return null;
+  if (!card) return <div>Card not found</div>;
 
   const handleClose = () => {
     navigate(-1);
