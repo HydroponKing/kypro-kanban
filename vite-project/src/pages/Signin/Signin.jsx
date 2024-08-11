@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';  // Импортируем компонент Link из react-router-dom
+import React from "react";
+import { Link } from "react-router-dom"; // Импортируем компонент Link из react-router-dom
 import {
   Wrapper,
   ContainerSignin,
@@ -9,8 +9,8 @@ import {
   ModalFormLogin,
   ModalInput,
   ModalButton,
-  ModalFormGroup
-} from './Signin.styled';
+  ModalFormGroup,
+} from "./Signin.styled";
 
 const Signin = () => {
   return (
@@ -22,14 +22,24 @@ const Signin = () => {
               <h2>Вход</h2>
             </ModalTitle>
             <ModalFormLogin id="formLogIn" action="#">
-              <ModalInput type="text" name="login" id="formlogin" placeholder="Эл. почта" />
-              <ModalInput type="password" name="password" id="formpassword" placeholder="Пароль" />
+              <ModalInput
+                type="text"
+                name="login"
+                id="formlogin"
+                placeholder="Эл. почта"
+              />
+              <ModalInput
+                type="password"
+                name="password"
+                id="formpassword"
+                placeholder="Пароль"
+              />
               <ModalButton id="btnEnter">
-                <a href="../main.html">Войти</a>
+                <Link to="/HomePage">Войти</Link>{" "}
               </ModalButton>
               <ModalFormGroup>
                 <p>Нужно зарегистрироваться?</p>
-                <Link to="/signup">Регистрируйтесь здесь</Link> {/* Используем Link для перехода */}
+                <Link to="/signup">Регистрируйтесь здесь</Link>{" "}
               </ModalFormGroup>
             </ModalFormLogin>
           </ModalBlock>

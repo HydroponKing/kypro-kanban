@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-import Signin from './pages/Signin/Signin';  // Обновленный путь
-import Signup from './pages/Signup/Signup';  // Путь не изменился
-import PopBrowse from './components/popups/PopBrowse/PopBrowse';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Signin from './pages/Signin/Signin';
+import Signup from './pages/Signup/Signup';
 import Loader from './components/Loader/Loader';
-import Exit from './pages/Exit/Exit';  // Обновленный путь
-import CardModal from './pages/CardModal/CardModal';  // Обновленный путь
-import NotFound from './pages/NotFound/NotFound';  // Обновленный путь
+import Exit from './pages/Exit/Exit';
+import CardModal from './pages/CardModal/CardModal';
+import NotFound from './pages/NotFound/NotFound';
+import HomePage from './pages/HomePage/HomePage';
 import { cards as initialCards } from './data';
 import './App.css';
 
@@ -37,37 +35,35 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/signin" element={<Signin onLogin={handleLogin} />} />
-          <Route path="/signup" element={<Signup />} />
           <Route
             path="/"
             element={
               isAuth ? (
-                <Layout onCardAdd={addCard} onLogout={handleLogout} cards={cards} />
+                <HomePage onCardAdd={addCard} onLogout={handleLogout} cards={cards} />
               ) : (
                 <Navigate to="/signin" />
               )
             }
-          >
-            <Route path="exit" element={<Exit onLogout={handleLogout} />} />
-            <Route path="card/:cardId" element={<CardModal cards={cards} />} />
-          </Route>
-          <Route path="404" element={<NotFound />} /> {/* Новый маршрут для страницы 404 */}
-          <Route path="*" element={<Navigate to="/404" />} /> {/* Перенаправляем все несуществующие маршруты на 404 */}
+          />
+          <Route
+            path="/homepage"
+            element={
+              isAuth ? (
+                <HomePage onCardAdd={addCard} onLogout={handleLogout} cards={cards} />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
+          />
+          <Route path="/signin" element={<Signin onLogin={handleLogin} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/exit" element={<Exit onLogout={handleLogout} />} />
+          <Route path="/card/:cardId" element={<CardModal cards={cards} />} />
+          <Route path="404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
       </div>
     </Router>
-  );
-}
-
-function Layout({ onCardAdd, onLogout, cards }) {
-  return (
-    <>
-      <Header onCardAdd={onCardAdd} onLogout={onLogout} />
-      <Main cards={cards} />
-      <PopBrowse />
-      <Outlet />
-    </>
   );
 }
 
