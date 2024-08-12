@@ -1,29 +1,30 @@
-// pages/CardModal/CardModal.jsx
 import React from 'react';
-import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import {
   CardModalWrapper,
   CardModalContainer,
+  CardModalTopBlock,
   CardModalTitle,
-  CardModalDescription,
+  CategoriesThemeTop,
   CardModalStatus,
-  CardModalStatusLabel,
-  CardModalActions,
-  CardModalEditButton,
-  CardModalDeleteButton,
-  CardModalCloseButton,
-  CardModalContent
+  StatusLabel,
+  StatusThemes,
+  StatusTheme,
+  CardModalWrap,
+  CardModalForm,
+  FormBlock,
+  DescriptionLabel,
+  DescriptionArea,
+  ButtonGroup,
+  EditButton,
+  DeleteButton,
+  CloseButton,
 } from './CardModal.styled';
 
 const CardModal = () => {
   const { cardId } = useParams();
   const navigate = useNavigate();
-  const { cards } = useOutletContext(); // Получаем cards из Outlet
-
-  const card = cards.find(card => card.id === parseInt(cardId));
-
-  if (!card) return <div>Card not found</div>;
 
   const handleClose = () => {
     navigate(-1);
@@ -32,24 +33,40 @@ const CardModal = () => {
   return (
     <CardModalWrapper onClick={handleClose}>
       <CardModalContainer onClick={(e) => e.stopPropagation()}>
-        <CardModalTitle>{card.title}</CardModalTitle>
+        <CardModalTopBlock>
+          <CardModalTitle>Название задачи</CardModalTitle>
+          <CategoriesThemeTop>
+            <p>Web Design</p>
+          </CategoriesThemeTop>
+        </CardModalTopBlock>
+
         <CardModalStatus>
-          <CardModalStatusLabel>Статус</CardModalStatusLabel>
-          <div>{card.status}</div>
+          <StatusLabel>Статус</StatusLabel>
+          <StatusThemes>
+            <StatusTheme className="active">Нужно сделать</StatusTheme> {/* Оставляем только активный статус */}
+          </StatusThemes>
         </CardModalStatus>
 
-        <CardModalContent>
-          <CardModalDescription value={card.description || "Описание задачи"} readOnly />
-          <div>
-            <Calendar />
-          </div>
-        </CardModalContent>
+        <CardModalWrap>
+          <CardModalForm>
+            <FormBlock>
+              <DescriptionLabel htmlFor="textArea01">Описание задачи</DescriptionLabel>
+              <DescriptionArea
+                id="textArea01"
+                name="text"
+                placeholder="Введите описание задачи..."
+                readOnly
+              />
+            </FormBlock>
+          </CardModalForm>
+          <Calendar />
+        </CardModalWrap>
 
-        <CardModalActions>
-          <CardModalEditButton>Редактировать задачу</CardModalEditButton>
-          <CardModalDeleteButton>Удалить задачу</CardModalDeleteButton>
-          <CardModalCloseButton onClick={handleClose}>Закрыть</CardModalCloseButton>
-        </CardModalActions>
+        <ButtonGroup>
+          <EditButton>Редактировать задачу</EditButton>
+          <DeleteButton>Удалить задачу</DeleteButton>
+          <CloseButton onClick={handleClose}>Закрыть</CloseButton>
+        </ButtonGroup>
       </CardModalContainer>
     </CardModalWrapper>
   );
