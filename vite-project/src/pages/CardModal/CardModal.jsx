@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import {
   CardModalWrapper,
@@ -23,8 +23,14 @@ import {
 } from './CardModal.styled';
 
 const CardModal = () => {
-  const { cardId } = useParams();
+  const { cardId } = useParams(); // Получаем ID карточки из URL
   const navigate = useNavigate();
+  const { cards } = useOutletContext(); // Получаем список карточек из контекста
+  const card = cards.find((c) => c.id === Number(cardId)); // Находим нужную карточку по ID
+
+  if (!card) {
+    return <p>Карточка не найдена</p>; // Если карточка не найдена
+  }
 
   const handleClose = () => {
     navigate(-1);
@@ -34,16 +40,16 @@ const CardModal = () => {
     <CardModalWrapper onClick={handleClose}>
       <CardModalContainer onClick={(e) => e.stopPropagation()}>
         <CardModalTopBlock>
-          <CardModalTitle>Название задачи</CardModalTitle>
+          <CardModalTitle>{card.title}</CardModalTitle>
           <CategoriesThemeTop>
-            <p>Web Design</p>
+            <p>{card.topic}</p>
           </CategoriesThemeTop>
         </CardModalTopBlock>
 
         <CardModalStatus>
           <StatusLabel>Статус</StatusLabel>
           <StatusThemes>
-            <StatusTheme className="active">Нужно сделать</StatusTheme> {/* Оставляем только активный статус */}
+            <StatusTheme>{card.status}</StatusTheme>
           </StatusThemes>
         </CardModalStatus>
 
@@ -54,12 +60,13 @@ const CardModal = () => {
               <DescriptionArea
                 id="textArea01"
                 name="text"
-                placeholder="Введите описание задачи..."
+                placeholder="Описание задачи"
+                value={`Описание задачи для ${card.title}`} // Пример заполнения описания
                 readOnly
               />
             </FormBlock>
           </CardModalForm>
-          <Calendar />
+          <Calendar /> {/* Календарь с датами */}
         </CardModalWrap>
 
         <ButtonGroup>
