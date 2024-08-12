@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Signin from './pages/Signin/Signin';
@@ -26,28 +25,13 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          {/* Главная страница */}
-          <Route
-            path={routes.home}
-            element={
-              <PrivateRoute isAuth={isAuth}>
-                <HomePage onLogout={handleLogout} />
-              </PrivateRoute>
-            }
-          >
+          {/* Защищенные маршруты */}
+          <Route element={<PrivateRoute isAuth={isAuth} />}>
+            <Route path={routes.home} element={<HomePage onLogout={handleLogout} />} />
             <Route path={routes.card} element={<CardModal />} />
           </Route>
 
-          {/* Альтернативный маршрут для домашней страницы */}
-          <Route
-            path="/homepage"
-            element={
-              <PrivateRoute isAuth={isAuth}>
-                <HomePage onLogout={handleLogout} />
-              </PrivateRoute>
-            }
-          />
-
+          {/* Открытые маршруты */}
           <Route path={routes.signin} element={<Signin onLogin={handleLogin} />} />
           <Route path={routes.signup} element={<Signup />} />
           <Route path={routes.exit} element={<Exit onLogout={handleLogout} />} />
