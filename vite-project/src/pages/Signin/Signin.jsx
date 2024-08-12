@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Импортируем компонент Link из react-router-dom
+import { Link, useNavigate } from "react-router-dom"; // Импортируем Link и useNavigate
 import {
   Wrapper,
   ContainerSignin,
@@ -12,7 +12,15 @@ import {
   ModalFormGroup,
 } from "./Signin.styled";
 
-const Signin = () => {
+const Signin = ({ onLogin }) => {
+  const navigate = useNavigate();
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    onLogin(); 
+    navigate("/"); 
+  };
+
   return (
     <Wrapper>
       <ContainerSignin>
@@ -21,7 +29,7 @@ const Signin = () => {
             <ModalTitle>
               <h2>Вход</h2>
             </ModalTitle>
-            <ModalFormLogin id="formLogIn" action="#">
+            <ModalFormLogin id="formLogIn" onSubmit={handleLogin}>
               <ModalInput
                 type="text"
                 name="login"
@@ -34,8 +42,8 @@ const Signin = () => {
                 id="formpassword"
                 placeholder="Пароль"
               />
-              <ModalButton id="btnEnter">
-                <Link to="/">Войти</Link> 
+              <ModalButton id="btnEnter" type="submit">
+                Войти
               </ModalButton>
               <ModalFormGroup>
                 <p>Нужно зарегистрироваться?</p>
