@@ -15,7 +15,7 @@ const Card = ({ card }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/card/${card.id}`);
+    navigate(`/card/${card._id}`); // Используем _id, так как API возвращает идентификатор с этим именем
   };
 
   return (
@@ -44,7 +44,7 @@ const Card = ({ card }) => {
               </clipPath>
             </defs>
           </svg>
-          <p>{card.date}</p>
+          <p>{new Date(card.date).toLocaleDateString()}</p> {/* Форматируем дату для более удобного чтения */}
         </CardDate>
       </CardContent>
     </CardContainer>

@@ -1,22 +1,28 @@
-// pages/HomePage/HomePage.jsx
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import PopBrowse from '../../components/popups/PopBrowse/PopBrowse';
 import Loader from '../../components/Loader/Loader';
 import { Outlet } from 'react-router-dom';
-import { cards as initialCards } from '../../data';
+import { fetchTasks } from '../../api'; // Импортируем функцию для получения данных из API
 
 const HomePage = ({ onLogout }) => {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Эмулируем загрузку данных
-    setTimeout(() => {
-      setCards(initialCards);
-      setLoading(false);
-    }, 1000);
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks();
+        setCards(fetchedTasks);
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTasks();
   }, []);
 
   const addCard = (newCard) => {
@@ -24,7 +30,7 @@ const HomePage = ({ onLogout }) => {
   };
 
   if (loading) {
-    return <Loader setCards={setCards} setLoading={setLoading} initialCards={initialCards} />;
+    return <Loader />;
   }
 
   return (
