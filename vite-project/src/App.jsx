@@ -37,13 +37,13 @@ function App() {
           <Route element={<PrivateRoute isAuth={isAuth} />}>
             <Route path={routes.home} element={<HomePage onLogout={handleLogout} />}>
               <Route path={routes.card} element={<CardModal />} />
+              <Route path="exit" element={<Exit onLogout={handleLogout} />} /> {/* Вложенный маршрут для выхода */}
             </Route>
           </Route>
 
           {/* Открытые маршруты */}
           <Route path={routes.signin} element={<Signin onLogin={handleLogin} />} />
           <Route path={routes.signup} element={<Signup />} />
-          <Route path={routes.exit} element={<Exit onLogout={handleLogout} />} />
           <Route path={routes.notFound} element={<NotFound />} />
           <Route path={routes.wildcard} element={<Navigate to={routes.notFound} />} />
         </Routes>
