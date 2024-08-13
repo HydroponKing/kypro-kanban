@@ -20,3 +20,24 @@ export const fetchTasks = async () => {
     return [];
   }
 };
+
+//Новый API-запрос для получения конкретной задачи
+export const fetchTaskById = async (taskId) => {
+  try {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${taskId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Передаем токен в заголовке Authorization
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch task');
+    }
+
+    const task = await response.json();
+    return task;
+  } catch (error) {
+    console.error('Error fetching task:', error);
+    return null;
+  }
+};

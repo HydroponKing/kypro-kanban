@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Calendar from '../../components/Calendar/Calendar';
 import {
   CardModalWrapper,
@@ -21,12 +21,33 @@ import {
   DeleteButton,
   CloseButton,
 } from './CardModal.styled';
+import { fetchTaskById } from '../../api';
 
 const CardModal = () => {
   const { cardId } = useParams(); // Получаем ID карточки из URL
   const navigate = useNavigate();
-  const { cards } = useOutletContext(); // Получаем список карточек из контекста
-  const card = cards.find((c) => c.id === Number(cardId)); // Находим нужную карточку по ID
+  const [card, setCard] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadCard = async () => {
+      try {
+        const fetchedCard = await fetchTaskById(cardId);
+        console.log('Fetched Card:', fetchedCard); // Добавляем логирование для проверки
+        setCard(fetchedCard);
+      } catch (error) {
+        console.error('Error fetching card:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCard();
+  }, [cardId]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   if (!card) {
     return <p>Карточка не найдена</p>; // Если карточка не найдена
@@ -40,16 +61,16 @@ const CardModal = () => {
     <CardModalWrapper onClick={handleClose}>
       <CardModalContainer onClick={(e) => e.stopPropagation()}>
         <CardModalTopBlock>
-          <CardModalTitle>{card.title}</CardModalTitle>
+          <CardModalTitle>{card.title || 'Заголовок отсутствует'}</CardModalTitle>
           <CategoriesThemeTop>
-            <p>{card.topic}</p>
+            <p>{card.topic || 'Тема отсутствует'}</p>
           </CategoriesThemeTop>
         </CardModalTopBlock>
 
         <CardModalStatus>
           <StatusLabel>Статус</StatusLabel>
           <StatusThemes>
-            <StatusTheme>{card.status}</StatusTheme>
+            <StatusTheme>{card.status || 'Без статуса'}</StatusTheme>
           </StatusThemes>
         </CardModalStatus>
 
@@ -61,7 +82,7 @@ const CardModal = () => {
                 id="textArea01"
                 name="text"
                 placeholder="Описание задачи"
-                value={`Описание задачи для ${card.title}`} // Пример заполнения описания
+                value={card.description || 'Описание отсутствует'} // Используем описание задачи из API
                 readOnly
               />
             </FormBlock>

@@ -27,8 +27,9 @@ function App() {
         <Routes>
           {/* Защищенные маршруты */}
           <Route element={<PrivateRoute isAuth={isAuth} />}>
-            <Route path={routes.home} element={<HomePage onLogout={handleLogout} />} />
-            <Route path={routes.card} element={<CardModal />} />
+            <Route path={routes.home} element={<HomePage onLogout={handleLogout} />}>
+              <Route path={routes.card} element={<CardModal />} /> {/* Вложенный маршрут */}
+            </Route>
           </Route>
 
           {/* Открытые маршруты */}
