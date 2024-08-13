@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';  // Импортируем компонент Link из react-router-dom
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Wrapper,
   ContainerSignup,
@@ -11,8 +11,25 @@ import {
   ModalButton,
   ModalFormGroup
 } from './Signup.styled';
+import { registerUser } from '../../api';
 
 const Signup = () => {
+  const [login, setLogin] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await registerUser(login, name, password);
+      console.log('User registered:', user);
+      navigate('/signin');
+    } catch (error) {
+      alert('Ошибка регистрации. Попробуйте другой логин.');
+    }
+  };
+
   return (
     <Wrapper>
       <ContainerSignup>
@@ -21,15 +38,33 @@ const Signup = () => {
             <ModalTitle>
               <h2>Регистрация</h2>
             </ModalTitle>
-            <ModalFormLogin id="formLogUp" action="#">
-              <ModalInput type="text" name="first-name" id="first-name" placeholder="Имя" />
-              <ModalInput type="text" name="login" id="loginReg" placeholder="Эл. почта" />
-              <ModalInput type="password" name="password" id="passwordFirst" placeholder="Пароль" />
-              <ModalButton id="SignUpEnter">
-                <a><Link to="/Homepage">Зарегистрироваться</Link></a>
+            <ModalFormLogin onSubmit={handleRegister}>
+              <ModalInput
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Имя"
+                required
+              />
+              <ModalInput
+                type="text"
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+                placeholder="Эл. почта"
+                required
+              />
+              <ModalInput
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Пароль"
+                required
+              />
+              <ModalButton type="submit">
+                Зарегистрироваться
               </ModalButton>
               <ModalFormGroup>
-                <p>Уже есть аккаунт? <Link to="/signin">Войдите здесь</Link></p> {/* Используем Link для перехода */}
+                <p>Уже есть аккаунт? <Link to="/signin">Войдите здесь</Link></p>
               </ModalFormGroup>
             </ModalFormLogin>
           </ModalBlock>

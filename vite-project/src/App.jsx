@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
@@ -7,11 +7,18 @@ import CardModal from './pages/CardModal/CardModal';
 import NotFound from './pages/NotFound/NotFound';
 import HomePage from './pages/HomePage/HomePage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import routes from './components/routes/routes'; // Импортируем маршруты
+import routes from './components/routes/routes';
 import './App.css';
 
 function App() {
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsAuth(true);
+    }
+  }, []);
 
   const handleLogin = () => {
     setIsAuth(true);
@@ -19,6 +26,7 @@ function App() {
 
   const handleLogout = () => {
     setIsAuth(false);
+    localStorage.removeItem('authToken');
   };
 
   return (
@@ -28,7 +36,7 @@ function App() {
           {/* Защищенные маршруты */}
           <Route element={<PrivateRoute isAuth={isAuth} />}>
             <Route path={routes.home} element={<HomePage onLogout={handleLogout} />}>
-              <Route path={routes.card} element={<CardModal />} /> {/* Вложенный маршрут */}
+              <Route path={routes.card} element={<CardModal />} />
             </Route>
           </Route>
 
