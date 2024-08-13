@@ -4,7 +4,7 @@ import Main from '../../components/Main/Main';
 import PopBrowse from '../../components/popups/PopBrowse/PopBrowse';
 import Loader from '../../components/Loader/Loader';
 import { Outlet } from 'react-router-dom';
-import { fetchTasks } from '../../api'; // Импортируем функцию для получения данных из API
+import { fetchTasks } from '../../api';
 
 const HomePage = ({ onLogout }) => {
   const [cards, setCards] = useState([]);
@@ -25,17 +25,14 @@ const HomePage = ({ onLogout }) => {
     loadTasks();
   }, []);
 
-  const addCard = (newCard) => {
-    setCards([...cards, { ...newCard, status: 'Без статуса' }]);
-  };
-
   if (loading) {
-    return <Loader />;
+    return <Loader />; // Обновленный Loader без пропсов
   }
+
 
   return (
     <>
-      <Header onCardAdd={addCard} onLogout={onLogout} />
+      <Header onCardAdd={(newCard) => setCards([...cards, { ...newCard, status: 'Без статуса' }])} onLogout={onLogout} />
       <Main cards={cards} />
       <PopBrowse />
       <Outlet context={{ cards }} />

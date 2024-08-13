@@ -10,7 +10,7 @@ const Column = ({ title, cardList }) => {
       </ColumnTitle>
       <Cards>
         {cardList.map((card) => (
-          <CardsItem key={card.id}>
+          <CardsItem key={card._id || `${card.title}-${card.date}`}>
             <Card card={card} />
           </CardsItem>
         ))}
