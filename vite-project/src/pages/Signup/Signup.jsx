@@ -26,7 +26,7 @@ const Signup = () => {
       console.log('User registered:', user);
       navigate('/signin');
     } catch (error) {
-      alert('Ошибка регистрации. Попробуйте другой логин.');
+      alert('Ошибка регистрации. Почта или логин уже заняты.');
     }
   };
 
