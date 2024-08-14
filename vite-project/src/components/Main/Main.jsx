@@ -1,22 +1,27 @@
-import React from 'react';
-//import './Main.css';
+import React from "react";
+import Column from "../Column/Column";
+import { MainContent } from './Main.styled';
 
-import Column from '../Column/Column';
+const Main = ({ cards }) => {
+  const statusList = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово",
+  ];
 
-const Main = () => (
-  <main className="main">
-    <div className="container">
-      <div className="main__block">
-        <div className="main__content">
-          <Column title="Без статуса" />
-          <Column title="Нужно сделать" />
-          <Column title="В работе" />
-          <Column title="Тестирование" />
-          <Column title="Готово" />
-        </div>
-      </div>
-    </div>
-  </main>
-);
+  return (
+    <MainContent>
+      {statusList.map((status) => (
+        <Column
+          key={status}
+          title={status}
+          cardList={cards.filter(card => card.status === status)}
+        />
+      ))}
+    </MainContent>
+  );
+};
 
 export default Main;

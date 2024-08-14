@@ -1,18 +1,22 @@
-import React from 'react';
-//import './Column.css';
-import Card from '../Card/Card';
+import React from "react";
+import Card from "../Card/Card";
+import { ColumnWrapper, ColumnTitle, Cards, CardsItem } from './Column.styled';
 
-const Column = ({ title }) => (
-  <div className="main__column column">
-    <div className="column__title">
-      <p>{title}</p>
-    </div>
-    <div className="cards">
-      <Card />
-      <Card />
-      <Card />
-    </div>
-  </div>
-);
+const Column = ({ title, cardList }) => {
+  return (
+    <ColumnWrapper>
+      <ColumnTitle>
+        <p>{title}</p>
+      </ColumnTitle>
+      <Cards>
+        {cardList.map((card) => (
+          <CardsItem key={card._id || `${card.title}-${card.date}`}>
+            <Card card={card} />
+          </CardsItem>
+        ))}
+      </Cards>
+    </ColumnWrapper>
+  );
+};
 
 export default Column;
