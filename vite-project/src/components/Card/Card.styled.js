@@ -6,7 +6,7 @@ export const topicStyles = {
     backgroundColor: "#ffe4c2",
     color: "#ff6d00",
   },
-  'Copywritting': {
+  'Copywriting': {
     backgroundColor: "#e9d4ff",
     color: "#9a48f1",
   },

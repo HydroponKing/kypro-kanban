@@ -10,7 +10,7 @@ const Column = ({ title, cardList }) => {
       </ColumnTitle>
       <Cards>
         {cardList.map((card) => (
-          <CardsItem key={card._id || `${card.title}-${card.date}`}>
+          <CardsItem key={card._id || `${card.title}-${card.date}-${Math.random()}`}>
             <Card card={card} />
           </CardsItem>
         ))}
