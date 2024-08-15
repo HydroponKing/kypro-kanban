@@ -1,15 +1,7 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  root: '.', // Корневая директория
-  build: {
-    rollupOptions: {
-      input: 'D:/учеба/react/kypro-kanban/index.html', // Путь к вашему index.html
-    },
-  },
-  server: {
-    open: '/index.html', // Открывать index.html при запуске сервера
-  },
-});
+})
