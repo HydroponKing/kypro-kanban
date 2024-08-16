@@ -100,3 +100,24 @@ const getToken = () => {
     }
   };
   
+// Функция для получения информации о текущем пользователе
+export const fetchUserInfo = async () => {
+  const token = getToken(); // Получаем токен из localStorage
+  try {
+    const response = await fetch('https://wedev-api.sky.pro/api/user', {
+      headers: {
+        Authorization: `Bearer ${token}`, // Передаем токен в заголовке Authorization
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch user info');
+    }
+
+    const data = await response.json();
+    return data.users[0]; // Предполагается, что возвращается список пользователей, берем первого
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    return null;
+  }
+};

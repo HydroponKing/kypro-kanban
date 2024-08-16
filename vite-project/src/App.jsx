@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage/HomePage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import routes from './components/routes/routes';
 import './App.css';
+import { UserProvider } from './components/UserContext.jsx'; // Импортируем UserProvider
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -30,25 +31,27 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          {/* Защищенные маршруты */}
-          <Route element={<PrivateRoute isAuth={isAuth} />}>
-            <Route path={routes.home} element={<HomePage onLogout={handleLogout} />}>
-              <Route path={routes.card} element={<CardModal />} />
-              <Route path="exit" element={<Exit onLogout={handleLogout} />} /> {/* Вложенный маршрут для выхода */}
+    <UserProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            {/* Защищенные маршруты */}
+            <Route element={<PrivateRoute isAuth={isAuth} />}>
+              <Route path={routes.home} element={<HomePage onLogout={handleLogout} />}>
+                <Route path={routes.card} element={<CardModal />} />
+                <Route path="exit" element={<Exit onLogout={handleLogout} />} /> {/* Вложенный маршрут для выхода */}
+              </Route>
             </Route>
-          </Route>
 
-          {/* Открытые маршруты */}
-          <Route path={routes.signin} element={<Signin onLogin={handleLogin} />} />
-          <Route path={routes.signup} element={<Signup />} />
-          <Route path={routes.notFound} element={<NotFound />} />
-          <Route path={routes.wildcard} element={<Navigate to={routes.notFound} />} />
-        </Routes>
-      </div>
-    </Router>
+            {/* Открытые маршруты */}
+            <Route path={routes.signin} element={<Signin onLogin={handleLogin} />} />
+            <Route path={routes.signup} element={<Signup />} />
+            <Route path={routes.notFound} element={<NotFound />} />
+            <Route path={routes.wildcard} element={<Navigate to={routes.notFound} />} />
+          </Routes>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 

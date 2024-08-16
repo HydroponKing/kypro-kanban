@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PopUser from '../popups/PopUser/PopUser';
 import { HeaderWrapper, Container, HeaderBlock, Logo, HeaderNav, HeaderButton, HeaderUser } from './Header.styled';
+import { UserContext } from '../UserContext'; // Импортируем контекст
 
 const Header = ({ onCardAdd }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useContext(UserContext); // Используем контекст
 
   const handleUserClick = () => {
     setIsModalOpen(!isModalOpen);
@@ -39,7 +41,7 @@ const Header = ({ onCardAdd }) => {
               Создать новую задачу
             </HeaderButton>
             <HeaderUser onClick={handleUserClick}>
-              Ivan Ivanov
+              {user ? user.name : 'Загрузка...'}
             </HeaderUser>
             {isModalOpen && <PopUser onClose={handleUserClick} />}
           </HeaderNav>
