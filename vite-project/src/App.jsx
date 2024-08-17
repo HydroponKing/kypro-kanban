@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Signin from './pages/Signin/Signin';
@@ -6,6 +7,7 @@ import Exit from './pages/Exit/Exit';
 import CardModal from './pages/CardModal/CardModal';
 import NotFound from './pages/NotFound/NotFound';
 import HomePage from './pages/HomePage/HomePage';
+import EditTask from './pages/EditTask/EditTask'; // Новый импорт
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import routes from './components/routes/routes';
 import './App.css';
@@ -39,6 +41,7 @@ function App() {
             <Route element={<PrivateRoute isAuth={isAuth} />}>
               <Route path={routes.home} element={<HomePage onLogout={handleLogout} />}>
                 <Route path={routes.card} element={<CardModal />} />
+                <Route path={routes.editTask} element={<EditTask />} /> {/* Новый маршрут */}
                 <Route path="exit" element={<Exit onLogout={handleLogout} />} /> {/* Вложенный маршрут для выхода */}
               </Route>
             </Route>

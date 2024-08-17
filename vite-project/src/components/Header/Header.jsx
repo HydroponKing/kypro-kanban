@@ -1,25 +1,20 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PopUser from '../popups/PopUser/PopUser';
 import { HeaderWrapper, Container, HeaderBlock, Logo, HeaderNav, HeaderButton, HeaderUser } from './Header.styled';
-import { UserContext } from '../UserContext'; // Импортируем контекст
+import { UserContext } from '../UserContext';
 
-const Header = ({ onCardAdd }) => {
+const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useContext(UserContext); // Используем контекст
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleUserClick = () => {
     setIsModalOpen(!isModalOpen);
   };
 
   const handleAddTaskClick = () => {
-    const newCard = {
-      id: Date.now(),
-      topic: 'Web Design',
-      title: 'Новая задача',
-      date: new Date().toISOString().split('T')[0],
-      status: 'Без статуса'
-    };
-    onCardAdd(newCard);
+    navigate('/edit-task/new'); // Переход на страницу создания новой задачи
   };
 
   return (
