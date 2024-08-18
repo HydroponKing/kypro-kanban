@@ -121,3 +121,26 @@ export const fetchUserInfo = async () => {
     return null;
   }
 };
+
+export const createTask = async (task) => {
+  const token = getToken(); // Получаем токен из localStorage
+  try {
+    const response = await fetch('https://wedev-api.sky.pro/api/kanban', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Убираем Content-Type
+      },
+      body: JSON.stringify(task), // Оставляем JSON.stringify, чтобы передать данные
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create task');
+    }
+
+    const data = await response.json();
+    return data.tasks; // Предполагаем, что возвращается список задач
+  } catch (error) {
+    console.error('Error creating task:', error);
+    throw error;
+  }
+};

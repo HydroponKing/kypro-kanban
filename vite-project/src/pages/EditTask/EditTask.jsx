@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { StyledDayPicker, EditTaskWrapper, EditTaskContainer, EditTaskBlock, EditTaskContent, EditTaskTitle, EditTaskClose, FormGroup, Input, Textarea, ButtonGroup, FormRow, LeftColumn, DateSection, CalendarWrapper, DateTitle, Tag, TagContainer, TagTitle } from './EditTask.styled';
+import { StyledDayPicker, EditTaskWrapper, EditTaskContainer, EditTaskBlock, EditTaskContent, EditTaskTitle, EditTaskClose, FormGroup, Input, Textarea, ButtonGroup, FormRow, LeftColumn, DateSection, CalendarWrapper, DateTitle } from './EditTask.styled';
+import { createTask } from '../../api';
+import { topicStyles } from './EditTask.styled';
 
 const EditTask = ({ onSave }) => {
   const { cardId } = useParams();
@@ -9,19 +11,28 @@ const EditTask = ({ onSave }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [topic, setTopic] = useState('Research');
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    const updatedTask = {
-      id: cardId,
-      title,
-      description,
-      date: selectedDate,
-      topic: selectedTopic || 'Research',
+
+    const newTask = {
+      title: title || 'Новая задача',
+      topic,
+      description: description || '',
+      date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
+      status: 'Без статуса',
     };
-    onSave(updatedTask);
-    navigate(-1);
+
+    console.log('Отправляемые данные:', JSON.stringify(newTask, null, 2));
+
+    try {
+      const updatedTasks = await createTask(newTask);
+      onSave(updatedTasks);
+      navigate(-1);
+    } catch (error) {
+      console.error('Error saving task:', error);
+    }
   };
 
   const handleCancel = () => {
@@ -69,19 +80,29 @@ const EditTask = ({ onSave }) => {
                   </CalendarWrapper>
                 </DateSection>
               </FormRow>
-              <TagTitle>Категория</TagTitle>
-              <TagContainer>
-                {['Web Design', 'Copywriting', 'Research'].map(topic => (
-                  <Tag
-                    key={topic}
-                    selected={selectedTopic === topic}
-                    onClick={() => setSelectedTopic(topic)}
-                    topic={topic}
-                  >
-                    {topic}
-                  </Tag>
-                ))}
-              </TagContainer>
+              <FormGroup>
+                <label>Категория</label>
+                <div>
+                  {['Web Design', 'Research', 'Copywriting'].map((t) => (
+                    <button
+                      type="button"
+                      key={t}
+                      style={{
+                        backgroundColor: topic === t ? topicStyles[t].backgroundColor : '#f0f0f0',
+                        color: topic === t ? topicStyles[t].color : '#000',
+                        marginRight: '10px',
+                        padding: '5px 10px',
+                        borderRadius: '20px',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => setTopic(t)}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </FormGroup>
               <ButtonGroup>
                 <button type="submit">Создать задачу</button>
               </ButtonGroup>
