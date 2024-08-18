@@ -25,17 +25,20 @@ const HomePage = ({ onLogout }) => {
     loadTasks();
   }, []);
 
-  if (loading) {
-    return <Loader />; // Обновленный Loader без пропсов
-  }
+  const handleTaskUpdate = (updatedTasks) => {
+    setCards(updatedTasks);
+  };
 
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
       <Header onCardAdd={(newCard) => setCards([...cards, { ...newCard, status: 'Без статуса' }])} onLogout={onLogout} />
       <Main cards={cards} />
       <PopBrowse />
-      <Outlet context={{ cards }} />
+      <Outlet context={{ cards, onSave: handleTaskUpdate }} />
     </>
   );
 };

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
 import { StyledDayPicker, EditTaskWrapper, EditTaskContainer, EditTaskBlock, EditTaskContent, EditTaskTitle, EditTaskClose, FormGroup, Input, Textarea, ButtonGroup, FormRow, LeftColumn, DateSection, CalendarWrapper, DateTitle } from './EditTask.styled';
 import { createTask } from '../../api';
 import { topicStyles } from './EditTask.styled';
 
-const EditTask = ({ onSave }) => {
+const EditTask = () => {
   const { cardId } = useParams();
   const navigate = useNavigate();
+  const { onSave } = useOutletContext();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -23,8 +24,6 @@ const EditTask = ({ onSave }) => {
       date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
       status: 'Без статуса',
     };
-
-    console.log('Отправляемые данные:', JSON.stringify(newTask, null, 2));
 
     try {
       const updatedTasks = await createTask(newTask);
