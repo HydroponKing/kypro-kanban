@@ -1,23 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  EditTaskWrapper,
-  EditTaskContainer,
-  EditTaskBlock,
-  EditTaskContent,
-  EditTaskTitle,
-  EditTaskClose,
-  FormGroup,
-  Input,
-  Textarea,
-  ButtonGroup,
-  FormRow,
-  LeftColumn,
-  DateSection,
-  CalendarWrapper,
-  DateTitle,
-  CustomDayPicker
-} from './EditTask.styled';
+import { StyledDayPicker, EditTaskWrapper, EditTaskContainer, EditTaskBlock, EditTaskContent, EditTaskTitle, EditTaskClose, FormGroup, Input, Textarea, ButtonGroup, FormRow, LeftColumn, DateSection, CalendarWrapper, DateTitle, Tag, TagContainer, TagTitle } from './EditTask.styled';
 
 const EditTask = ({ onSave }) => {
   const { cardId } = useParams();
@@ -26,6 +9,7 @@ const EditTask = ({ onSave }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(null);
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -34,6 +18,7 @@ const EditTask = ({ onSave }) => {
       title,
       description,
       date: selectedDate,
+      topic: selectedTopic || 'Research',
     };
     onSave(updatedTask);
     navigate(-1);
@@ -76,7 +61,7 @@ const EditTask = ({ onSave }) => {
                 <DateSection>
                   <DateTitle>Даты</DateTitle>
                   <CalendarWrapper>
-                    <CustomDayPicker
+                    <StyledDayPicker
                       mode="single"
                       selected={selectedDate}
                       onSelect={setSelectedDate}
@@ -84,6 +69,19 @@ const EditTask = ({ onSave }) => {
                   </CalendarWrapper>
                 </DateSection>
               </FormRow>
+              <TagTitle>Категория</TagTitle>
+              <TagContainer>
+                {['Web Design', 'Copywriting', 'Research'].map(topic => (
+                  <Tag
+                    key={topic}
+                    selected={selectedTopic === topic}
+                    onClick={() => setSelectedTopic(topic)}
+                    topic={topic}
+                  >
+                    {topic}
+                  </Tag>
+                ))}
+              </TagContainer>
               <ButtonGroup>
                 <button type="submit">Создать задачу</button>
               </ButtonGroup>

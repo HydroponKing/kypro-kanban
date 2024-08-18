@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 
-export const CustomDayPicker = styled(DayPicker)`
+export const StyledDayPicker = styled(DayPicker)`
   --rdp-accent-color: #33399b;
   --rdp-accent-background-color: #f0f0f0;
   --rdp-day-font: 12px 'Roboto', sans-serif;
@@ -21,10 +21,58 @@ export const CustomDayPicker = styled(DayPicker)`
     font-weight: 500;
     margin-bottom: 8px;
   }
-
+  
   .rdp-nav_button {
     color: #565eef;
   }
+`;
+
+export const topicStyles = {
+  'Web Design': {
+    backgroundColor: "#ffe4c2",
+    color: "#ff6d00",
+  },
+  'Copywriting': {
+    backgroundColor: "#e9d4ff",
+    color: "#9a48f1",
+  },
+  'Research': {
+    backgroundColor: "#b4fdd1",
+    color: "#06b16e",
+  }
+};
+
+export const Tag = styled.div`
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  opacity: ${({ selected }) => (selected ? '1' : '0.5')};
+  background-color: ${({ topic }) => topicStyles[topic]?.backgroundColor || '#f1f1f1'};
+  color: ${({ topic }) => topicStyles[topic]?.color || '#000'};
+  margin-right: 8px;
+  margin-bottom: 8px;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
+
+export const TagTitle = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  color: #94a6be;
+  margin-bottom: 10px;
 `;
 
 export const EditTaskWrapper = styled.div`
@@ -43,7 +91,6 @@ export const EditTaskWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 export const EditTaskContainer = styled.div`
   width: 100%;
   height: 100%;
