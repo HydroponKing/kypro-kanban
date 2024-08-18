@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 import {
   EditTaskWrapper,
   EditTaskContainer,
@@ -20,7 +22,6 @@ import {
   Tag,
   TagContainer,
   TagTitle,
-  topicStyles
 } from './EditTask.styled';
 import { createTask } from '../../api';
 
@@ -95,7 +96,13 @@ const EditTask = () => {
                       mode="single"
                       selected={selectedDate}
                       onSelect={setSelectedDate}
+                      locale={ru}
                     />
+                    {selectedDate && (
+                      <p style={{ color: '#94A6BE', marginTop: '10px', fontSize: '10px' }}>
+                        Срок исполнения: {format(selectedDate, 'dd.MM.yyyy')}
+                      </p>
+                    )}
                   </CalendarWrapper>
                 </DateSection>
               </FormRow>
