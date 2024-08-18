@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
-import { StyledDayPicker, EditTaskWrapper, EditTaskContainer, EditTaskBlock, EditTaskContent, EditTaskTitle, EditTaskClose, FormGroup, Input, Textarea, ButtonGroup, FormRow, LeftColumn, DateSection, CalendarWrapper, DateTitle } from './EditTask.styled';
+import {
+  EditTaskWrapper,
+  EditTaskContainer,
+  EditTaskBlock,
+  EditTaskContent,
+  EditTaskTitle,
+  EditTaskClose,
+  FormGroup,
+  Input,
+  Textarea,
+  ButtonGroup,
+  FormRow,
+  LeftColumn,
+  DateSection,
+  CalendarWrapper,
+  DateTitle,
+  StyledDayPicker,
+  Tag,
+  TagContainer,
+  TagTitle,
+  topicStyles
+} from './EditTask.styled';
 import { createTask } from '../../api';
-import { topicStyles } from './EditTask.styled';
 
 const EditTask = () => {
   const { cardId } = useParams();
@@ -80,27 +100,19 @@ const EditTask = () => {
                 </DateSection>
               </FormRow>
               <FormGroup>
-                <label>Категория</label>
-                <div>
+                <TagTitle>Категория</TagTitle>
+                <TagContainer>
                   {['Web Design', 'Research', 'Copywriting'].map((t) => (
-                    <button
-                      type="button"
+                    <Tag
                       key={t}
-                      style={{
-                        backgroundColor: topic === t ? topicStyles[t].backgroundColor : '#f0f0f0',
-                        color: topic === t ? topicStyles[t].color : '#000',
-                        marginRight: '10px',
-                        padding: '5px 10px',
-                        borderRadius: '20px',
-                        border: 'none',
-                        cursor: 'pointer'
-                      }}
+                      topic={t}
+                      selected={topic === t}
                       onClick={() => setTopic(t)}
                     >
                       {t}
-                    </button>
+                    </Tag>
                   ))}
-                </div>
+                </TagContainer>
               </FormGroup>
               <ButtonGroup>
                 <button type="submit">Создать задачу</button>

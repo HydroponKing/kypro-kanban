@@ -71,8 +71,8 @@ export const TagContainer = styled.div`
 export const TagTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
-  color: #94a6be;
-  margin-bottom: 10px;
+  color: black;
+  margin-bottom: 16px;
 `;
 
 export const EditTaskWrapper = styled.div`
@@ -91,6 +91,7 @@ export const EditTaskWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 export const EditTaskContainer = styled.div`
   width: 100%;
   height: 100%;
