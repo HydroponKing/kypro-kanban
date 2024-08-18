@@ -1,6 +1,5 @@
-// components/UserContext.js
 import React, { createContext, useState, useEffect } from 'react';
-import { fetchUserInfo } from '../api'; // Импортируем функцию из api.js
+import { fetchUserInfo } from '../api';
 
 export const UserContext = createContext();
 
@@ -9,11 +8,14 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const loadUser = async () => {
-      try {
-        const userInfo = await fetchUserInfo(); // Получаем данные о пользователе из API
-        setUser(userInfo);
-      } catch (error) {
-        console.error('Failed to load user info:', error);
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        try {
+          const userInfo = await fetchUserInfo(); // Получаем данные о пользователе из API
+          setUser(userInfo);
+        } catch (error) {
+          console.error('Failed to load user info:', error);
+        }
       }
     };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { loginUser } from '../../api';
 import {
   Wrapper,
   ContainerSignin,
@@ -11,9 +12,8 @@ import {
   ModalButton,
   ModalFormGroup
 } from './Signin.styled';
-import { loginUser } from '../../api';
 
-const Signin = ({ onLogin }) => {
+const Signin = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -22,9 +22,7 @@ const Signin = ({ onLogin }) => {
     e.preventDefault();
     try {
       const user = await loginUser(login, password);
-      console.log('User logged in:', user);
       localStorage.setItem('authToken', user.token);
-      onLogin();
       navigate('/'); // Перенаправляем на главную страницу после успешного входа
     } catch (error) {
       alert('Ошибка авторизации. Неверный логин или пароль.');

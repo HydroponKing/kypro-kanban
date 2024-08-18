@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { registerUser } from '../../api';
 import {
   Wrapper,
   ContainerSignup,
@@ -11,7 +12,6 @@ import {
   ModalButton,
   ModalFormGroup
 } from './Signup.styled';
-import { registerUser } from '../../api';
 
 const Signup = () => {
   const [login, setLogin] = useState('');
@@ -22,8 +22,7 @@ const Signup = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const user = await registerUser(login, name, password);
-      console.log('User registered:', user);
+      await registerUser(login, name, password);
       navigate('/signin');
     } catch (error) {
       alert('Ошибка регистрации. Почта или логин уже заняты.');
