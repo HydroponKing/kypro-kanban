@@ -1,5 +1,31 @@
-// src/pages/EditTask/EditTask.styled.js
 import styled from 'styled-components';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/style.css';
+
+export const CustomDayPicker = styled(DayPicker)`
+  --rdp-accent-color: #33399b;
+  --rdp-accent-background-color: #f0f0f0;
+  --rdp-day-font: 12px 'Roboto', sans-serif;
+  --rdp-day-height: 24px;
+  --rdp-day-width: 24px;
+  --rdp-day_button-border-radius: 50%;
+  --rdp-day_button-border: none;
+  --rdp-selected-border: 1px solid #565eef;
+  --rdp-today-color: #565eef;
+  --rdp-nav_button-width: 24px;
+  --rdp-nav_button-height: 24px;
+
+  .rdp-caption {
+    color: #94a6be;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .rdp-nav_button {
+    color: #565eef;
+  }
+`;
 
 export const EditTaskWrapper = styled.div`
   display: block;
@@ -33,12 +59,12 @@ export const EditTaskContainer = styled.div`
 export const EditTaskBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 48px;
   border-radius: 10px;
-  border: 0.7px solid #D4DBE5;
+  border: 0.7px solid #d4dbe5;
   position: relative;
 `;
 
@@ -59,7 +85,7 @@ export const EditTaskClose = styled.a`
   position: absolute;
   top: 20px;
   right: 30px;
-  color: #94A6BE;
+  color: #94a6be;
   cursor: pointer;
 
   &:hover {
@@ -93,14 +119,14 @@ export const Input = styled.input`
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
-    color: #94A6BE;
+    color: #94a6be;
     letter-spacing: -0.14px;
   }
 `;
 
 export const Textarea = styled.textarea`
   width: 100%;
-  height: 200px;
+  height: 150px;
   padding: 14px;
   font-size: 14px;
   border-radius: 8px;
@@ -111,7 +137,7 @@ export const Textarea = styled.textarea`
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
-    color: #94A6BE;
+    color: #94a6be;
     letter-spacing: -0.14px;
   }
 `;
@@ -119,6 +145,7 @@ export const Textarea = styled.textarea`
 export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 20px;
 
   button {
     padding: 10px 20px;
@@ -126,12 +153,39 @@ export const ButtonGroup = styled.div`
     cursor: pointer;
     border: none;
     border-radius: 4px;
-    background-color: #565EEF;
-    color: #FFFFFF;
+    background-color: #565eef;
+    color: #ffffff;
     margin-left: 10px;
     
     &:hover {
       background-color: #434baf;
     }
   }
+`;
+
+export const FormRow = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+export const LeftColumn = styled.div`
+  flex: 1;
+`;
+
+export const DateSection = styled.div`
+  width: 160px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const CalendarWrapper = styled.div`
+  margin-bottom: 10px;
+`;
+
+export const DateTitle = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  color: #94a6be;
+  margin-bottom: 10px;
 `;
