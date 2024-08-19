@@ -28,7 +28,8 @@ import { createTask } from '../../api';
 const EditTask = () => {
   const { cardId } = useParams();
   const navigate = useNavigate();
-  const { onSave } = useOutletContext();
+  const context = useOutletContext();
+  const onSave = context?.onSave || (() => {}); // Обрабатываем случай, когда onSave может быть неопределен
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -47,8 +48,10 @@ const EditTask = () => {
     };
 
     try {
-      const updatedTasks = await createTask(newTask);
-      onSave(updatedTasks);
+      const createdTask = await createTask(newTask);
+      if (onSave) {
+        onSave((prevTasks) => [...prevTasks, createdTask]);
+      }
       navigate(-1);
     } catch (error) {
       console.error('Error saving task:', error);
