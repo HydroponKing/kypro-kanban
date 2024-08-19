@@ -14,6 +14,10 @@ import { UserProvider } from './components/UserContext';
 import { TasksProvider } from './components/TasksContext';
 
 function App() {
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+  };
+
   return (
     <UserProvider>
       <TasksProvider>
@@ -25,7 +29,7 @@ function App() {
                   {/* Модальные компоненты рендерятся внутри основной страницы */}
                   <Route path={routes.editTask} element={<EditTask />} />
                   <Route path={routes.card} element={<CardModal />} />
-                  <Route path="exit" element={<Exit />} />
+                  <Route path="exit" element={<Exit onLogout={handleLogout} />} />
                 </Route>
               </Route>
               <Route path={routes.signin} element={<Signin />} />
