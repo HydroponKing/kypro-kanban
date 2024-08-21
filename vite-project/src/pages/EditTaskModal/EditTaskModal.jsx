@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ru } from 'date-fns/locale'; // Добавьте этот импорт
+import { ru } from 'date-fns/locale';
 import {
   EditTaskModalWrapper,
   EditTaskModalContainer,
@@ -29,7 +29,6 @@ const EditTaskModal = () => {
   const [originalTask, setOriginalTask] = useState(null);
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
-  const [topic, setTopic] = useState('');
   const [status, setStatus] = useState('');
 
   useEffect(() => {
@@ -39,7 +38,6 @@ const EditTaskModal = () => {
         setOriginalTask(fetchedTask);
         setDescription(fetchedTask.description || '');
         setSelectedDate(new Date(fetchedTask.date) || null);
-        setTopic(fetchedTask.topic || '');
         setStatus(fetchedTask.status || '');
       } catch (error) {
         console.error('Error fetching task:', error);
@@ -57,7 +55,7 @@ const EditTaskModal = () => {
       description: description !== originalTask.description ? description : originalTask.description,
       date: selectedDate ? selectedDate.toISOString() : originalTask.date,
       topic: originalTask.topic,
-      status: originalTask.status,
+      status: status !== originalTask.status ? status : originalTask.status,
     };
 
     try {
@@ -75,7 +73,7 @@ const EditTaskModal = () => {
       <EditTaskModalContainer>
         <EditTaskModalTopBlock>
           <EditTaskModalTitle>{originalTask.title}</EditTaskModalTitle>
-          <CategoriesThemeTop>{topic}</CategoriesThemeTop>
+          <CategoriesThemeTop>{originalTask.topic}</CategoriesThemeTop>
           <EditTaskModalClose onClick={() => navigate(-1)}>✖</EditTaskModalClose>
         </EditTaskModalTopBlock>
         <form onSubmit={handleSave}>
@@ -103,7 +101,7 @@ const EditTaskModal = () => {
                 mode="single"
                 selected={selectedDate}
                 onSelect={setSelectedDate}
-                locale={ru}  // Используйте импортированную локализацию
+                locale={ru}
               />
             </CalendarWrapper>
           </FormRow>
