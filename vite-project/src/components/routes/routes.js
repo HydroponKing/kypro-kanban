@@ -7,7 +7,8 @@ const routes = {
     signup: "/signup",
     exit: "/exit",
     card: "/card/:cardId",
-    editTask: "/edit-task/:cardId", // Новый маршрут для редактирования задачи
+    editTask: "/edit-task/:cardId", 
+    editTaskModal: '/edit-task-modal/:cardId', //Новый маршрут для редактирования задачи
     notFound: "/404",
     wildcard: "*",
   };

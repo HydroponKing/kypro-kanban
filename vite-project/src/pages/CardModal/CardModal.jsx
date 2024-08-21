@@ -57,6 +57,10 @@ const CardModal = () => {
     navigate(-1);
   };
 
+  const handleEdit = () => {
+    navigate(`/edit-task-modal/${cardId}`);
+  };
+
   return (
     <CardModalWrapper onClick={handleClose}>
       <CardModalContainer onClick={(e) => e.stopPropagation()}>
@@ -91,7 +95,7 @@ const CardModal = () => {
         </CardModalWrap>
 
         <ButtonGroup>
-          <EditButton>Редактировать задачу</EditButton>
+          <EditButton onClick={handleEdit}>Редактировать задачу</EditButton>
           <DeleteButton>Удалить задачу</DeleteButton>
           <CloseButton onClick={handleClose}>Закрыть</CloseButton>
         </ButtonGroup>

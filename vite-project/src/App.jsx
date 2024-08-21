@@ -4,6 +4,7 @@ import Signin from './pages/Signin/Signin';
 import Signup from './pages/Signup/Signup';
 import Exit from './pages/Exit/Exit';
 import CardModal from './pages/CardModal/CardModal';
+import EditTaskModal from './pages/EditTaskModal/EditTaskModal'; // Новый компонент для редактирования задачи
 import NotFound from './pages/NotFound/NotFound';
 import HomePage from './pages/HomePage/HomePage';
 import EditTask from './pages/EditTask/EditTask';
@@ -29,13 +30,14 @@ function App() {
                   {/* Модальные компоненты рендерятся внутри основной страницы */}
                   <Route path={routes.editTask} element={<EditTask />} />
                   <Route path={routes.card} element={<CardModal />} />
+                  <Route path={routes.editTaskModal} element={<EditTaskModal />} />
                   <Route path="exit" element={<Exit onLogout={handleLogout} />} />
                 </Route>
               </Route>
               <Route path={routes.signin} element={<Signin />} />
               <Route path={routes.signup} element={<Signup />} />
               <Route path={routes.notFound} element={<NotFound />} />
-              <Route path={routes.wildcard} element={<Navigate to={routes.notFound} />} />
+              <Route path="*" element={<Navigate to={routes.notFound} />} />
             </Routes>
           </div>
         </Router>
