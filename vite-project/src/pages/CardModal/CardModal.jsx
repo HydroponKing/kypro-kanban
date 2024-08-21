@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Calendar from '../../components/Calendar/Calendar';
+import { ru } from 'date-fns/locale'; // Оставьте только один импорт `ru`
 import {
   CardModalWrapper,
   CardModalContainer,
@@ -20,11 +20,15 @@ import {
   EditButton,
   DeleteButton,
   CloseButton,
+  CalendarWrapper,
+  DateTitle,
+  StyledDayPicker,
 } from './CardModal.styled';
+
 import { fetchTaskById, deleteTask } from '../../api';
 
 const CardModal = () => {
-  const { cardId } = useParams(); // Получаем ID карточки из URL
+  const { cardId } = useParams();
   const navigate = useNavigate();
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -49,7 +53,7 @@ const CardModal = () => {
   }
 
   if (!card) {
-    return <p>Карточка не найдена</p>; // Если карточка не найдена
+    return <p>Карточка не найдена</p>;
   }
 
   const handleClose = () => {
@@ -57,13 +61,13 @@ const CardModal = () => {
   };
 
   const handleEdit = () => {
-    navigate(`/edit-task-modal/${cardId}`); // Переход на страницу редактирования
+    navigate(`/edit-task-modal/${cardId}`);
   };
 
   const handleDelete = async () => {
     try {
       await deleteTask(cardId);
-      navigate(-1); // Возвращаемся после удаления
+      navigate(-1);
     } catch (error) {
       console.error('Error deleting task:', error);
     }
@@ -99,7 +103,15 @@ const CardModal = () => {
               />
             </FormBlock>
           </CardModalForm>
-          <Calendar />
+          <CalendarWrapper>
+            <DateTitle>Срок исполнения</DateTitle>
+            <StyledDayPicker
+              mode="single"
+              selected={new Date(card.date)}
+              onSelect={() => {}}
+              locale={ru}  // Используйте импортированную локализацию
+            />
+          </CalendarWrapper>
         </CardModalWrap>
 
         <ButtonGroup>

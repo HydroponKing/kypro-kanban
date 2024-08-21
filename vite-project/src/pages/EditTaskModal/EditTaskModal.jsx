@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ru } from 'date-fns/locale'; // Добавьте этот импорт
 import {
   EditTaskModalWrapper,
   EditTaskModalContainer,
@@ -11,17 +12,16 @@ import {
   ButtonGroup,
   SaveButton,
   CancelButton,
-  DeleteButton,
-  CloseButton,
-  CalendarWrap,
+  CalendarWrapper,
   FormRow,
   StatusLabel,
   StatusThemes,
   StatusTheme,
   CategoriesThemeTop,
+  DateTitle,
+  StyledDayPicker,
 } from './EditTaskModal.styled';
 import { fetchTaskById, updateTask } from '../../api';
-import Calendar from '../../components/Calendar/Calendar';
 
 const EditTaskModal = () => {
   const { taskId } = useParams();
@@ -51,28 +51,22 @@ const EditTaskModal = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
-  
-    // Проверка изменений и отправка только описания, если оно было изменено
+
     const updatedTask = {
-      title: originalTask.title, // Заголовок остаётся неизменным
+      title: originalTask.title,
       description: description !== originalTask.description ? description : originalTask.description,
-      date: originalTask.date, // Дата остаётся неизменной
-      topic: originalTask.topic, // Тема остаётся неизменной
-      status: originalTask.status, // Статус остаётся неизменным
+      date: selectedDate ? selectedDate.toISOString() : originalTask.date,
+      topic: originalTask.topic,
+      status: originalTask.status,
     };
-  
+
     try {
-      console.log('Отправляем обновленные данные задачи:', updatedTask);
-      const updatedTasks = await updateTask(taskId, updatedTask);
-      console.log('Updated tasks:', updatedTasks); // Логирование для проверки
-      navigate(-1); // Вернуться после сохранения
+      await updateTask(taskId, updatedTask);
+      navigate(-1);
     } catch (error) {
       console.error('Error updating task:', error);
     }
   };
-  
-  
-  
 
   if (!originalTask) return <p>Loading...</p>;
 
@@ -103,9 +97,15 @@ const EditTaskModal = () => {
                 placeholder="Введите описание задачи..."
               />
             </FormGroup>
-            <CalendarWrap>
-              <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} />
-            </CalendarWrap>
+            <CalendarWrapper>
+              <DateTitle>Дата завершения</DateTitle>
+              <StyledDayPicker
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                locale={ru}  // Используйте импортированную локализацию
+              />
+            </CalendarWrapper>
           </FormRow>
           <ButtonGroup>
             <SaveButton type="submit">Сохранить</SaveButton>
