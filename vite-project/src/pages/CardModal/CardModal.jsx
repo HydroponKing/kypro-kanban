@@ -21,7 +21,7 @@ import {
   DeleteButton,
   CloseButton,
 } from './CardModal.styled';
-import { fetchTaskById } from '../../api';
+import { fetchTaskById, deleteTask } from '../../api';
 
 const CardModal = () => {
   const { cardId } = useParams(); // Получаем ID карточки из URL
@@ -33,7 +33,6 @@ const CardModal = () => {
     const loadCard = async () => {
       try {
         const fetchedCard = await fetchTaskById(cardId);
-        console.log('Fetched Card:', fetchedCard); // Добавляем логирование для проверки
         setCard(fetchedCard);
       } catch (error) {
         console.error('Error fetching card:', error);
@@ -58,7 +57,16 @@ const CardModal = () => {
   };
 
   const handleEdit = () => {
-    navigate(`/edit-task-modal/${cardId}`);
+    navigate(`/edit-task-modal/${cardId}`); // Переход на страницу редактирования
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteTask(cardId);
+      navigate(-1); // Возвращаемся после удаления
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   return (
@@ -86,17 +94,17 @@ const CardModal = () => {
                 id="textArea01"
                 name="text"
                 placeholder="Описание задачи"
-                value={card.description || 'Описание отсутствует'} // Используем описание задачи из API
+                value={card.description || 'Описание отсутствует'}
                 readOnly
               />
             </FormBlock>
           </CardModalForm>
-          <Calendar /> {/* Календарь с датами */}
+          <Calendar />
         </CardModalWrap>
 
         <ButtonGroup>
           <EditButton onClick={handleEdit}>Редактировать задачу</EditButton>
-          <DeleteButton>Удалить задачу</DeleteButton>
+          <DeleteButton onClick={handleDelete}>Удалить задачу</DeleteButton>
           <CloseButton onClick={handleClose}>Закрыть</CloseButton>
         </ButtonGroup>
       </CardModalContainer>

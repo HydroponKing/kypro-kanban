@@ -146,3 +146,51 @@ export const createTask = async (task) => {
     throw error;
   }
 };
+// Функция для обновления задачи
+export const updateTask = async (taskId, updatedTask) => {
+  const token = getToken(); // Получаем токен из localStorage
+  try {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${taskId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Передаем токен в заголовке Authorization
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedTask), // Передаем обновленные данные задачи
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update task');
+    }
+
+    const data = await response.json();
+    return data.tasks; // Предполагаем, что возвращается список задач
+  } catch (error) {
+    console.error('Error updating task:', error);
+    throw error;
+  }
+};
+
+// Функция для удаления задачи
+export const deleteTask = async (taskId) => {
+  const token = getToken(); // Получаем токен из localStorage
+  try {
+    const response = await fetch(`https://wedev-api.sky.pro/api/kanban/${taskId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Передаем токен в заголовке Authorization
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete task');
+    }
+
+    const data = await response.json();
+    return data.tasks; // Возвращаем обновленный список задач
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    throw error;
+  }
+};
+
