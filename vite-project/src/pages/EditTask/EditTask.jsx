@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TasksContext } from '../../components/TasksContext'; // Импортируем контекст
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import {
@@ -23,14 +24,10 @@ import {
   TagContainer,
   TagTitle,
 } from './EditTask.styled';
-import { createTask } from '../../api';
 
 const EditTask = () => {
-  const { cardId } = useParams();
   const navigate = useNavigate();
-  const context = useOutletContext();
-  const onSave = context?.onSave || (() => {}); // Обрабатываем случай, когда onSave может быть неопределен
-
+  const { addTask } = useContext(TasksContext); // Получаем функцию addTask из контекста
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -48,10 +45,7 @@ const EditTask = () => {
     };
 
     try {
-      const createdTask = await createTask(newTask);
-      if (onSave) {
-        onSave((prevTasks) => [...prevTasks, createdTask]);
-      }
+      await addTask(newTask); // Используем функцию из контекста
       navigate(-1);
     } catch (error) {
       console.error('Error saving task:', error);

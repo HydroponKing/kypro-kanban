@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ru } from 'date-fns/locale';
+import { TasksContext } from '../../components/TasksContext'; // Импортируем контекст
+import { fetchTaskById } from '../../api'; // Импортируем функцию fetchTaskById
+import { ru } from 'date-fns/locale'; // Импортируем локализацию ru из date-fns
 import {
   EditTaskModalWrapper,
   EditTaskModalContainer,
@@ -21,11 +23,11 @@ import {
   DateTitle,
   StyledDayPicker,
 } from './EditTaskModal.styled';
-import { fetchTaskById, updateTask } from '../../api';
 
 const EditTaskModal = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
+  const { editTask } = useContext(TasksContext); // Получаем функцию editTask из контекста
   const [originalTask, setOriginalTask] = useState(null);
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -51,15 +53,14 @@ const EditTaskModal = () => {
     e.preventDefault();
 
     const updatedTask = {
-      title: originalTask.title,
-      description: description !== originalTask.description ? description : originalTask.description,
+      ...originalTask,
+      description,
       date: selectedDate ? selectedDate.toISOString() : originalTask.date,
-      topic: originalTask.topic,
-      status: status !== originalTask.status ? status : originalTask.status,
+      status,
     };
 
     try {
-      await updateTask(taskId, updatedTask);
+      await editTask(taskId, updatedTask); // Используем функцию из контекста
       navigate(-1);
     } catch (error) {
       console.error('Error updating task:', error);

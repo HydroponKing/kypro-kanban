@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ru } from 'date-fns/locale'; // Оставьте только один импорт `ru`
+import { TasksContext } from '../../components/TasksContext'; // Импортируем контекст
+import { fetchTaskById } from '../../api'; // Импортируем функцию fetchTaskById
+import { ru } from 'date-fns/locale'; // Импортируем локализацию ru из date-fns
 import {
   CardModalWrapper,
   CardModalContainer,
@@ -25,11 +27,10 @@ import {
   StyledDayPicker,
 } from './CardModal.styled';
 
-import { fetchTaskById, deleteTask } from '../../api';
-
 const CardModal = () => {
   const { cardId } = useParams();
   const navigate = useNavigate();
+  const { removeTask } = useContext(TasksContext); // Получаем функцию removeTask из контекста
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -66,7 +67,7 @@ const CardModal = () => {
 
   const handleDelete = async () => {
     try {
-      await deleteTask(cardId);
+      await removeTask(cardId); // Используем функцию из контекста
       navigate(-1);
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -109,7 +110,7 @@ const CardModal = () => {
               mode="single"
               selected={new Date(card.date)}
               onSelect={() => {}}
-              locale={ru}  // Используйте импортированную локализацию
+              locale={ru}  // Используем импортированную локализацию
             />
           </CalendarWrapper>
         </CardModalWrap>

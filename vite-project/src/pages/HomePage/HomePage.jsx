@@ -1,33 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
 import PopBrowse from '../../components/popups/PopBrowse/PopBrowse';
 import Loader from '../../components/Loader/Loader';
 import { Outlet } from 'react-router-dom';
-import { fetchTasks } from '../../api';
+import { TasksContext } from '../../components/TasksContext';
 
 const HomePage = ({ onLogout }) => {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        const fetchedTasks = await fetchTasks();
-        setCards(fetchedTasks);
-      } catch (error) {
-        console.error('Error loading tasks:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadTasks();
-  }, []);
-
-  const handleTaskUpdate = (updatedTasks) => {
-    setCards(updatedTasks);
-  };
+  const { tasks, addTask, loading } = useContext(TasksContext);
 
   if (loading) {
     return <Loader />;
@@ -35,10 +15,10 @@ const HomePage = ({ onLogout }) => {
 
   return (
     <>
-      <Header onCardAdd={(newCard) => setCards([...cards, { ...newCard, status: 'Без статуса' }])} onLogout={onLogout} />
-      <Main cards={cards} />
+      <Header onCardAdd={(newCard) => addTask({ ...newCard, status: 'Без статуса' })} onLogout={onLogout} />
+      <Main cards={tasks} />
       <PopBrowse />
-      <Outlet context={{ cards, onSave: handleTaskUpdate }} />
+      <Outlet />
     </>
   );
 };
