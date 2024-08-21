@@ -61,7 +61,7 @@ const EditTaskModal = () => {
 
     try {
       await editTask(taskId, updatedTask); // Используем функцию из контекста
-      navigate(-1);
+      navigate('/'); // Перенаправляем на главную страницу после сохранения
     } catch (error) {
       console.error('Error updating task:', error);
     }
@@ -75,7 +75,7 @@ const EditTaskModal = () => {
         <EditTaskModalTopBlock>
           <EditTaskModalTitle>{originalTask.title}</EditTaskModalTitle>
           <CategoriesThemeTop>{originalTask.topic}</CategoriesThemeTop>
-          <EditTaskModalClose onClick={() => navigate(-1)}>✖</EditTaskModalClose>
+          <EditTaskModalClose onClick={() => navigate('/')}>✖</EditTaskModalClose>
         </EditTaskModalTopBlock>
         <form onSubmit={handleSave}>
           <StatusLabel>Статус</StatusLabel>
@@ -108,7 +108,7 @@ const EditTaskModal = () => {
           </FormRow>
           <ButtonGroup>
             <SaveButton type="submit">Сохранить</SaveButton>
-            <CancelButton type="button" onClick={() => navigate(-1)}>Отменить</CancelButton>
+            <CancelButton type="button" onClick={() => navigate('/')}>Отменить</CancelButton>
           </ButtonGroup>
         </form>
       </EditTaskModalContainer>
