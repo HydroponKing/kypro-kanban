@@ -146,6 +146,7 @@ export const createTask = async (task) => {
     throw error;
   }
 };
+
 // Функция для обновления задачи
 export const updateTask = async (taskId, updatedTask) => {
   const token = getToken(); // Получаем токен из localStorage
@@ -154,9 +155,8 @@ export const updateTask = async (taskId, updatedTask) => {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`, // Передаем токен в заголовке Authorization
-        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedTask), // Передаем обновленные данные задачи
+      body: JSON.stringify(updatedTask), // Передаем обновленные данные задачи без указания Content-Type
     });
 
     if (!response.ok) {
@@ -170,6 +170,9 @@ export const updateTask = async (taskId, updatedTask) => {
     throw error;
   }
 };
+
+
+
 
 // Функция для удаления задачи
 export const deleteTask = async (taskId) => {

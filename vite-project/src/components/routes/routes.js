@@ -8,7 +8,7 @@ const routes = {
     exit: "/exit",
     card: "/card/:cardId",
     editTask: "/edit-task/:cardId", 
-    editTaskModal: '/edit-task-modal/:cardId', //Новый маршрут для редактирования задачи
+    editTaskModal: '/edit-task-modal/:taskId', //Новый маршрут для редактирования задачи
     notFound: "/404",
     wildcard: "*",
   };
