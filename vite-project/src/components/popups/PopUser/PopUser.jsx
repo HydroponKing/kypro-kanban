@@ -19,10 +19,10 @@ const PopUser = ({ onClose }) => {
           <>
             <p className="pop-user-set__name">{user.login}</p> {/* Отображаем логин пользователя */}
             <p className="pop-user-set__mail">{`${user.login}@gmail.com`}</p> {/* Формируем email на основе логина */}
-            <div className="pop-user-set__theme">
+            {/*<div className="pop-user-set__theme">
               <p>Темная тема</p>
               <input className="checkbox" name="checkbox" type="checkbox" />
-            </div>
+            </div>*/}
           </>
         ) : (
           <p>Загрузка...</p>

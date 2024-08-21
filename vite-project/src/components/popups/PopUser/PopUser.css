@@ -33,12 +33,12 @@
   margin-bottom: 20px;
 }
 
-.pop-user-set__theme {
+/*.pop-user-set__theme {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-}
+}*/
 
 .pop-user-set__theme p {
   color: #000;
