@@ -13,6 +13,8 @@ import {
   Textarea,
   ButtonGroup,
   SaveButton,
+  CloseButton,
+  DeleteButton,
   CancelButton,
   CalendarWrapper,
   FormRow,
@@ -23,6 +25,15 @@ import {
   DateTitle,
   StyledDayPicker,
 } from './EditTaskModal.styled';
+
+const handleDelete = async () => {
+  try {
+    await removeTask(cardId); // Используем функцию из контекста
+    navigate(-1);
+  } catch (error) {
+    console.error('Error deleting task:', error);
+  }
+};
 
 const EditTaskModal = () => {
   const { taskId } = useParams();
@@ -75,7 +86,6 @@ const EditTaskModal = () => {
         <EditTaskModalTopBlock>
           <EditTaskModalTitle>{originalTask.title}</EditTaskModalTitle>
           <CategoriesThemeTop>{originalTask.topic}</CategoriesThemeTop>
-          <EditTaskModalClose onClick={() => navigate('/')}>✖</EditTaskModalClose>
         </EditTaskModalTopBlock>
         <form onSubmit={handleSave}>
           <StatusLabel>Статус</StatusLabel>
@@ -109,6 +119,8 @@ const EditTaskModal = () => {
           <ButtonGroup>
             <SaveButton type="submit">Сохранить</SaveButton>
             <CancelButton type="button" onClick={() => navigate('/')}>Отменить</CancelButton>
+            <DeleteButton onClick={handleDelete}>Удалить задачу</DeleteButton>
+            <CloseButton type="button" onClick={() => navigate('/')}>Закрыть</CloseButton>
           </ButtonGroup>
         </form>
       </EditTaskModalContainer>

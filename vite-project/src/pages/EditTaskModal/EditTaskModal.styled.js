@@ -46,8 +46,6 @@ export const CalendarWrapper = styled.div`
   color: #94a6be; /* Цвет текста внутри контейнера */
 `;
 
-
-
 export const EditTaskModalWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -108,12 +106,12 @@ export const StatusThemes = styled.div`
 `;
 
 export const StatusTheme = styled.div`
-  padding: 7px 10px;
+  padding: 7px 10px 7px;
   border-radius: 24px;
   background: ${({ selected }) => (selected ? '#94A6BE' : '#EAEEF6')};
   color: ${({ selected }) => (selected ? '#FFFFFF' : '#94A6BE')};
   cursor: pointer;
-  margin-right: 8px;
+  margin: 4px;
 `;
 
 export const EditTaskModalClose = styled.button`
@@ -142,7 +140,6 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
   width: 100%;
   padding: 14px;
-  background: #EAEEF6;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -188,6 +185,20 @@ export const CancelButton = styled.button`
     color: #fff;
   }
 `;
+export const CloseButton = styled.button`
+  height: 30px;
+  padding: 0 14px;
+  background-color: #565EEF;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 165px;
+  &:hover {
+    background-color: #33399b;
+  }
+`;
 
 export const DeleteButton = styled.button`
   height: 30px;
@@ -206,20 +217,6 @@ export const DeleteButton = styled.button`
   }
 `;
 
-export const CloseButton = styled.button`
-  height: 30px;
-  padding: 0 14px;
-  background-color: #565EEF;
-  color: #fff;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  margin-left: 160px;
-  &:hover {
-    background-color: #33399b;
-  }
-`;
 
 export const CalendarWrap = styled.div`
   margin-left: 20px;
