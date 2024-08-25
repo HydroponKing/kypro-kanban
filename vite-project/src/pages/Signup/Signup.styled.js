@@ -50,7 +50,7 @@ export const ModalInput = styled.input`
   outline: none;
   padding: 14px;
   background: transparent;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 1px solid ${({ hasError }) => (hasError ? 'red' : 'rgba(148, 166, 190, 0.4)')}; /* Если есть ошибка, обводка красная */
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -113,3 +113,11 @@ export const ModalFormGroup = styled.div`
     }
   }
 `;
+
+export const ErrorMessage = styled.p`
+  color: red;
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: center;
+`;
+

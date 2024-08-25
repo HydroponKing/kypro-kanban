@@ -50,7 +50,7 @@ export const ModalInput = styled.input`
   outline: none;
   padding: 14px;
   background: transparent;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 1px solid ${({ hasError }) => (hasError ? 'red' : 'rgba(148, 166, 190, 0.4)')}; // Красная линия, если есть ошибка
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -60,7 +60,6 @@ export const ModalInput = styled.input`
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
-    line-height: 1px;
     color: #94a6be;
     letter-spacing: -0.14px;
   }
@@ -82,16 +81,6 @@ export const ModalButton = styled.button`
   justify-content: center;
   margin-bottom: 20px;
 
-  a {
-    color: #ffffff;
-    display: block;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   &:hover {
     background-color: #33399b;
   }
@@ -112,4 +101,11 @@ export const ModalFormGroup = styled.div`
       color: #33399b;
     }
   }
+`;
+
+export const ErrorMessage = styled.p`
+  color: red;
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: center;
 `;

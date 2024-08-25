@@ -10,22 +10,52 @@ import {
   ModalFormLogin,
   ModalInput,
   ModalButton,
-  ModalFormGroup
+  ModalFormGroup,
+  ErrorMessage
 } from './Signin.styled';
 
 const Signin = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [inputErrors, setInputErrors] = useState({}); // Для отслеживания ошибок в полях ввода
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Сброс ошибок перед проверкой
+    setError('');
+    setInputErrors({});
+
+    const newErrors = {};
+
+    if (!login.trim()) {
+      newErrors.login = true;
+    }
+    if (!password.trim()) {
+      newErrors.password = true;
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setInputErrors(newErrors);
+      setError('Пожалуйста, заполните все поля.');
+      return;
+    }
+
     try {
       const user = await loginUser(login, password);
       localStorage.setItem('authToken', user.token);
-      navigate('/'); // Перенаправляем на главную страницу после успешного входа
+      navigate('/');
     } catch (error) {
-      alert('Ошибка авторизации. Неверный логин или пароль.');
+      setError('Ошибка авторизации. Неверный логин или пароль.');
+    }
+  };
+
+  const handleInputChange = (setter, field) => (e) => {
+    setter(e.target.value);
+    if (inputErrors[field]) {
+      setInputErrors((prevErrors) => ({ ...prevErrors, [field]: false }));
     }
   };
 
@@ -41,20 +71,19 @@ const Signin = () => {
               <ModalInput
                 type="text"
                 value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={handleInputChange(setLogin, 'login')}
                 placeholder="Логин"
-                required
+                hasError={inputErrors.login} // Передаем статус ошибки для подсветки
               />
               <ModalInput
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleInputChange(setPassword, 'password')}
                 placeholder="Пароль"
-                required
+                hasError={inputErrors.password} // Передаем статус ошибки для подсветки
               />
-              <ModalButton type="submit">
-                Войти
-              </ModalButton>
+              {error && <ErrorMessage>{error}</ErrorMessage>}
+              <ModalButton type="submit">Войти</ModalButton>
               <ModalFormGroup>
                 <p>Еще нет аккаунта? <Link to="/signup">Зарегистрируйтесь здесь</Link></p>
               </ModalFormGroup>

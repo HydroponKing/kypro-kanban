@@ -26,19 +26,10 @@ import {
   StyledDayPicker,
 } from './EditTaskModal.styled';
 
-const handleDelete = async () => {
-  try {
-    await removeTask(cardId); // Используем функцию из контекста
-    navigate(-1);
-  } catch (error) {
-    console.error('Error deleting task:', error);
-  }
-};
-
 const EditTaskModal = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
-  const { editTask } = useContext(TasksContext); // Получаем функцию editTask из контекста
+  const { editTask, removeTask } = useContext(TasksContext); // Добавляем removeTask из контекста
   const [originalTask, setOriginalTask] = useState(null);
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -71,10 +62,19 @@ const EditTaskModal = () => {
     };
 
     try {
-      await editTask(taskId, updatedTask); // Используем функцию из контекста
-      navigate('/'); // Перенаправляем на главную страницу после сохранения
+      await editTask(taskId, updatedTask);
+      navigate('/');
     } catch (error) {
       console.error('Error updating task:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await removeTask(taskId); // Используем taskId
+      navigate(-1);
+    } catch (error) {
+      console.error('Error deleting task:', error);
     }
   };
 
