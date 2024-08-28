@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './PopUser.css';
+import { UserModal, UserModalContent, PopUserName, PopUserMail, LogoutButton } from './PopUser.styled';
 import { UserContext } from '../../UserContext'; // Правильный путь к UserContext
 
 const PopUser = ({ onClose }) => {
@@ -13,23 +13,19 @@ const PopUser = ({ onClose }) => {
   };
 
   return (
-    <div className="user-modal">
-      <div className="user-modal-content">
+    <UserModal>
+      <UserModalContent>
         {user ? (
           <>
-            <p className="pop-user-set__name">{user.login}</p> {/* Отображаем логин пользователя */}
-            <p className="pop-user-set__mail">{`${user.login}@gmail.com`}</p> {/* Формируем email на основе логина */}
-            {/*<div className="pop-user-set__theme">
-              <p>Темная тема</p>
-              <input className="checkbox" name="checkbox" type="checkbox" />
-            </div>*/}
+            <PopUserName>{user.login}</PopUserName> {/* Отображаем логин пользователя */}
+            <PopUserMail>{`${user.login}@gmail.com`}</PopUserMail> {/* Формируем email на основе логина */}
           </>
         ) : (
           <p>Загрузка...</p>
         )}
-        <button type="button" onClick={handleLogoutClick}>Выйти</button>
-      </div>
-    </div>
+        <LogoutButton type="button" onClick={handleLogoutClick}>Выйти</LogoutButton>
+      </UserModalContent>
+    </UserModal>
   );
 };
 

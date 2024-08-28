@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PopUser from '../popups/PopUser/PopUser';
-import { HeaderWrapper, Container, HeaderBlock, Logo, HeaderNav, HeaderButton, HeaderUser } from './Header.styled';
+import { HeaderWrapper, Container, HeaderBlock, LogoLight, LogoDark, HeaderNav, HeaderButton, HeaderUser } from './Header.styled';
 import { UserContext } from '../UserContext';
 
 const Header = () => {
@@ -21,16 +21,16 @@ const Header = () => {
     <HeaderWrapper>
       <Container>
         <HeaderBlock>
-          <Logo className="header__logo _show _light">
+          <LogoLight>
             <a href="" target="_self">
               <img alt="logo" src="public/logo.png" />
             </a>
-          </Logo>
-          <Logo className="header__logo _dark">
+          </LogoLight>
+          <LogoDark>
             <a href="" target="_self">
               <img alt="logo" src="public/logo_dark.png" />
             </a>
-          </Logo>
+          </LogoDark>
           <HeaderNav>
             <HeaderButton id="btnMainNew" onClick={handleAddTaskClick}>
               Создать новую задачу

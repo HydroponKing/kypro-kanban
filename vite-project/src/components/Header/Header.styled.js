@@ -25,11 +25,14 @@ export const HeaderBlock = styled.div`
   padding: 0 10px;
 `;
 
-export const Logo = styled.div`
-  &._show._light img {
+export const LogoLight = styled.div`
+  & img {
     width: 85px;
   }
-  &._dark img {
+`;
+
+export const LogoDark = styled.div`
+  & img {
     width: 85px;
   }
 `;
