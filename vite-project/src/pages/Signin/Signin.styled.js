@@ -50,7 +50,7 @@ export const ModalInput = styled.input`
   outline: none;
   padding: 14px;
   background: transparent;
-  border: 1px solid ${({ hasError }) => (hasError ? 'red' : 'rgba(148, 166, 190, 0.4)')};
+  border: 1px solid ${({ hasError }) => (hasError ? 'red' : 'rgba(148, 166, 190, 0.4)')}; // Подсветка поля
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../../api';
-import { UserContext } from '../../components/UserContext'; // Исправленный путь
+import { UserContext } from '../../components/UserContext'; // Исправленный путь для импорта контекста
 import {
   Wrapper,
   ContainerSignin,
@@ -11,6 +11,7 @@ import {
   ModalFormLogin,
   ModalInput,
   ModalButton,
+  ModalFormGroup,
   ErrorMessage
 } from './Signin.styled';
 
@@ -18,21 +19,46 @@ const Signin = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [inputErrors, setInputErrors] = useState({});
   const { setUser } = useContext(UserContext); // Получаем setUser из контекста пользователя
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // Сброс ошибок перед проверкой
     setError('');
+    setInputErrors({});
+
+    const newErrors = {};
+
+    if (!login.trim()) {
+      newErrors.login = true;
+    }
+    if (!password.trim()) {
+      newErrors.password = true;
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setInputErrors(newErrors);
+      setError('Пожалуйста, заполните все поля.');
+      return;
+    }
 
     try {
       const user = await loginUser(login, password);
-      localStorage.setItem('authToken', user.token); // Сохраняем токен в localStorage
+      localStorage.setItem('authToken', user.token);
       setUser(user); // Устанавливаем пользователя в контексте
-
       navigate('/'); // Перенаправляем на домашнюю страницу
     } catch (error) {
-      setError('Ошибка авторизации. Попробуйте еще раз.');
+      setError('Ошибка авторизации. Неверный логин или пароль.');
+    }
+  };
+
+  const handleInputChange = (setter, field) => (e) => {
+    setter(e.target.value);
+    if (inputErrors[field]) {
+      setInputErrors((prevErrors) => ({ ...prevErrors, [field]: false }));
     }
   };
 
@@ -41,24 +67,29 @@ const Signin = () => {
       <ContainerSignin>
         <Modal>
           <ModalBlock>
-            <ModalTitle>Вход</ModalTitle>
+            <ModalTitle>
+              <h2>Вход</h2>
+            </ModalTitle>
             <ModalFormLogin onSubmit={handleLogin}>
               <ModalInput
                 type="text"
                 value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={handleInputChange(setLogin, 'login')}
                 placeholder="Логин"
-                required
+                hasError={inputErrors.login} // Передаем статус ошибки для подсветки
               />
               <ModalInput
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleInputChange(setPassword, 'password')}
                 placeholder="Пароль"
-                required
+                hasError={inputErrors.password} // Передаем статус ошибки для подсветки
               />
               {error && <ErrorMessage>{error}</ErrorMessage>}
               <ModalButton type="submit">Войти</ModalButton>
+              <ModalFormGroup>
+                <p>Еще нет аккаунта? <Link to="/signup">Зарегистрируйтесь здесь</Link></p> {/* Восстановлена ссылка на регистрацию */}
+              </ModalFormGroup>
             </ModalFormLogin>
           </ModalBlock>
         </Modal>
