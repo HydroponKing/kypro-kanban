@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TasksContext } from '../../components/TasksContext';
 import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
 import {
   EditTaskWrapper,
   EditTaskContainer,
@@ -17,14 +16,12 @@ import {
   FormRow,
   LeftColumn,
   DateSection,
-  CalendarWrapper,
-  DateTitle,
-  StyledDayPicker,
   Tag,
   TagContainer,
   TagTitle,
-  ErrorMessage, // Импортируем ErrorMessage
+  ErrorMessage,
 } from './EditTask.styled';
+import Calendar from '../../components/Calendar/Calendar';
 
 const EditTask = () => {
   const navigate = useNavigate();
@@ -33,19 +30,17 @@ const EditTask = () => {
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [topic, setTopic] = useState('Research');
-  const [errors, setErrors] = useState({}); // Состояние для ошибок
+  const [errors, setErrors] = useState({});
 
   const handleSave = async (e) => {
     e.preventDefault();
 
-    // Сброс ошибок перед валидацией
     setErrors({});
 
     const newErrors = {};
     if (!title) newErrors.title = 'Введите название задачи';
     if (!description) newErrors.description = 'Введите описание задачи';
 
-    // Если есть ошибки, устанавливаем их и прерываем сохранение
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -110,20 +105,16 @@ const EditTask = () => {
                   </FormGroup>
                 </LeftColumn>
                 <DateSection>
-                  <DateTitle>Даты</DateTitle>
-                  <CalendarWrapper>
-                    <StyledDayPicker
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={setSelectedDate}
-                      locale={ru}
-                    />
-                    {selectedDate && (
-                      <p style={{ color: '#94A6BE', marginTop: '10px', fontSize: '10px' }}>
-                        Срок исполнения: {format(selectedDate, 'dd.MM.yyyy')}
-                      </p>
-                    )}
-                  </CalendarWrapper>
+                  <Calendar
+                    selectedDate={selectedDate}
+                    onDateSelect={setSelectedDate}
+                    title="Даты"
+                  />
+                  {selectedDate && (
+                    <p style={{ color: '#94A6BE', marginTop: '10px', fontSize: '10px' }}>
+                      Срок исполнения: {format(selectedDate, 'dd.MM.yyyy')}
+                    </p>
+                  )}
                 </DateSection>
               </FormRow>
               <FormGroup>

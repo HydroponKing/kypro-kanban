@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TasksContext } from '../../components/TasksContext'; // Импортируем контекст
-import { fetchTaskById } from '../../api'; // Импортируем функцию fetchTaskById
-import { ru } from 'date-fns/locale'; // Импортируем локализацию ru из date-fns
+import { TasksContext } from '../../components/TasksContext';
+import { fetchTaskById } from '../../api';
 import {
   EditTaskModalWrapper,
   EditTaskModalContainer,
@@ -16,20 +15,18 @@ import {
   CloseButton,
   DeleteButton,
   CancelButton,
-  CalendarWrapper,
   FormRow,
   StatusLabel,
   StatusThemes,
   StatusTheme,
   CategoriesThemeTop,
-  DateTitle,
-  StyledDayPicker,
 } from './EditTaskModal.styled';
+import Calendar from '../../components/Calendar/Calendar';
 
 const EditTaskModal = () => {
   const { taskId } = useParams();
   const navigate = useNavigate();
-  const { editTask, removeTask } = useContext(TasksContext); // Добавляем removeTask из контекста
+  const { editTask, removeTask } = useContext(TasksContext);
   const [originalTask, setOriginalTask] = useState(null);
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
@@ -71,7 +68,7 @@ const EditTaskModal = () => {
 
   const handleDelete = async () => {
     try {
-      await removeTask(taskId); // Используем taskId
+      await removeTask(taskId);
       navigate(-1);
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -106,15 +103,11 @@ const EditTaskModal = () => {
                 placeholder="Введите описание задачи..."
               />
             </FormGroup>
-            <CalendarWrapper>
-              <DateTitle>Дата завершения</DateTitle>
-              <StyledDayPicker
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                locale={ru}
-              />
-            </CalendarWrapper>
+            <Calendar
+              selectedDate={selectedDate}
+              onDateSelect={setSelectedDate}
+              title="Дата завершения"
+            />
           </FormRow>
           <ButtonGroup>
             <SaveButton type="submit">Сохранить</SaveButton>

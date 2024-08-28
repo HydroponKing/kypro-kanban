@@ -1,50 +1,5 @@
 import styled from 'styled-components';
-import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
-import { ru } from 'date-fns/locale';
-
-export const StyledDayPicker = styled(DayPicker).attrs({
-  locale: ru,
-  captionLayout: 'label',
-  showOutsideDays: true,
-})`
-  /* Используемые CSS переменные */
-  --rdp-accent-color:black ; /* Цвет текста выбранного дня */
-  --rdp-accent-background-color: #94A6BE; /* Цвет фона выбранного дня */
-  --rdp-day-font: 12px 'Roboto', sans-serif;
-  --rdp-day-height: 22px;
-  --rdp-day-width: 22px;
-  --rdp-day_button-border-radius: 50%; /* Делаем ячейки дней круглыми */
-  --rdp-day_button-border: none;
-  --rdp-selected-border: none;
-  --rdp-nav_button-width: 20px;
-
-  .rdp-day:hover {
-    background-color: rgba(86, 94, 239, 0.1) !important; /* Цвет фона при наведении */
-  }
- 
-
-  .rdp-caption_label {
-    color: #94a6be !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    margin-bottom: 8px !important;
-    text-transform: capitalize !important;
-  }
-`;
-
-/* Стили для заголовка "Даты" */
-export const DateTitle = styled.div`
-  font-size: 14px; /* Размер шрифта */
-  font-weight: 500; /* Толщина шрифта */
-  color: black; /* Цвет текста */
-  margin-bottom: 10px; /* Отступ снизу */
-`;
-
-export const CalendarWrapper = styled.div`
-  margin-bottom: 10px; /* Отступ снизу */
-  color: #94a6be; /* Цвет текста внутри контейнера */
-`;
 
 
 

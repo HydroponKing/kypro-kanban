@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { TasksContext } from '../../components/TasksContext'; // Импортируем контекст
-import { fetchTaskById } from '../../api'; // Импортируем функцию fetchTaskById
-import { ru } from 'date-fns/locale'; // Импортируем локализацию ru из date-fns
+import { TasksContext } from '../../components/TasksContext';
+import { fetchTaskById } from '../../api';
 import {
   CardModalWrapper,
   CardModalContainer,
@@ -22,15 +21,13 @@ import {
   EditButton,
   DeleteButton,
   CloseButton,
-  CalendarWrapper,
-  DateTitle,
-  StyledDayPicker,
 } from './CardModal.styled';
+import Calendar from '../../components/Calendar/Calendar';
 
 const CardModal = () => {
   const { cardId } = useParams();
   const navigate = useNavigate();
-  const { removeTask } = useContext(TasksContext); // Получаем функцию removeTask из контекста
+  const { removeTask } = useContext(TasksContext);
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +64,7 @@ const CardModal = () => {
 
   const handleDelete = async () => {
     try {
-      await removeTask(cardId); // Используем функцию из контекста
+      await removeTask(cardId);
       navigate(-1);
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -104,15 +101,11 @@ const CardModal = () => {
               />
             </FormBlock>
           </CardModalForm>
-          <CalendarWrapper>
-            <DateTitle>Срок исполнения</DateTitle>
-            <StyledDayPicker
-              mode="single"
-              selected={new Date(card.date)}
-              onSelect={() => {}}
-              locale={ru}  // Используем импортированную локализацию
-            />
-          </CalendarWrapper>
+          <Calendar
+            selectedDate={new Date(card.date)}
+            onDateSelect={() => {}}
+            title="Срок исполнения"
+          />
         </CardModalWrap>
 
         <ButtonGroup>
