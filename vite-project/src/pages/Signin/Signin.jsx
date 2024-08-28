@@ -87,7 +87,7 @@ const Signin = () => {
               <ModalFormGroup>
                 <p>Еще нет аккаунта? <Link to="/signup">Зарегистрируйтесь здесь</Link></p>
               </ModalFormGroup>
-            </ModalFormLogin>
+            </ModalFormLogin> 
           </ModalBlock>
         </Modal>
       </ContainerSignin>

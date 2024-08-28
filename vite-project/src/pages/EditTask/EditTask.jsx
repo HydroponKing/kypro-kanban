@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TasksContext } from '../../components/TasksContext'; // Импортируем контекст
+import { TasksContext } from '../../components/TasksContext';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import {
@@ -23,29 +23,44 @@ import {
   Tag,
   TagContainer,
   TagTitle,
+  ErrorMessage, // Импортируем ErrorMessage
 } from './EditTask.styled';
 
 const EditTask = () => {
   const navigate = useNavigate();
-  const { addTask } = useContext(TasksContext); // Получаем функцию addTask из контекста
+  const { addTask } = useContext(TasksContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [topic, setTopic] = useState('Research');
+  const [errors, setErrors] = useState({}); // Состояние для ошибок
 
   const handleSave = async (e) => {
     e.preventDefault();
 
+    // Сброс ошибок перед валидацией
+    setErrors({});
+
+    const newErrors = {};
+    if (!title) newErrors.title = 'Введите название задачи';
+    if (!description) newErrors.description = 'Введите описание задачи';
+
+    // Если есть ошибки, устанавливаем их и прерываем сохранение
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     const newTask = {
-      title: title || 'Новая задача',
+      title,
       topic,
-      description: description || '',
+      description,
       date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
       status: 'Без статуса',
     };
 
     try {
-      await addTask(newTask); // Используем функцию из контекста
+      await addTask(newTask);
       navigate(-1);
     } catch (error) {
       console.error('Error saving task:', error);
@@ -74,7 +89,11 @@ const EditTask = () => {
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="Введите название задачи..."
+                      style={{
+                        borderColor: errors.title ? 'red' : 'inherit',
+                      }}
                     />
+                    {errors.title && <ErrorMessage>{errors.title}</ErrorMessage>}
                   </FormGroup>
                   <FormGroup>
                     <label htmlFor="textArea">Описание задачи</label>
@@ -83,7 +102,11 @@ const EditTask = () => {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       placeholder="Введите описание задачи..."
+                      style={{
+                        borderColor: errors.description ? 'red' : 'inherit',
+                      }}
                     />
+                    {errors.description && <ErrorMessage>{errors.description}</ErrorMessage>}
                   </FormGroup>
                 </LeftColumn>
                 <DateSection>
@@ -118,6 +141,9 @@ const EditTask = () => {
                   ))}
                 </TagContainer>
               </FormGroup>
+              {Object.keys(errors).length > 0 && (
+                <ErrorMessage>Заполните обязательные поля перед созданием задачи</ErrorMessage>
+              )}
               <ButtonGroup>
                 <button type="submit">Создать задачу</button>
               </ButtonGroup>

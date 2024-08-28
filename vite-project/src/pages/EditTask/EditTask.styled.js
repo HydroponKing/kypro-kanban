@@ -247,3 +247,8 @@ export const DateSection = styled.div`
   display: flex;
   flex-direction: column;
 `;
+export const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+`;
