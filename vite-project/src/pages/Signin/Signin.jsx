@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../api';
+import { UserContext } from '../../components/UserContext'; // Исправленный путь
 import {
   Wrapper,
   ContainerSignin,
@@ -10,7 +11,6 @@ import {
   ModalFormLogin,
   ModalInput,
   ModalButton,
-  ModalFormGroup,
   ErrorMessage
 } from './Signin.styled';
 
@@ -18,44 +18,21 @@ const Signin = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [inputErrors, setInputErrors] = useState({}); // Для отслеживания ошибок в полях ввода
+  const { setUser } = useContext(UserContext); // Получаем setUser из контекста пользователя
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Сброс ошибок перед проверкой
     setError('');
-    setInputErrors({});
-
-    const newErrors = {};
-
-    if (!login.trim()) {
-      newErrors.login = true;
-    }
-    if (!password.trim()) {
-      newErrors.password = true;
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setInputErrors(newErrors);
-      setError('Пожалуйста, заполните все поля.');
-      return;
-    }
 
     try {
       const user = await loginUser(login, password);
-      localStorage.setItem('authToken', user.token);
-      navigate('/');
-    } catch (error) {
-      setError('Ошибка авторизации. Неверный логин или пароль.');
-    }
-  };
+      localStorage.setItem('authToken', user.token); // Сохраняем токен в localStorage
+      setUser(user); // Устанавливаем пользователя в контексте
 
-  const handleInputChange = (setter, field) => (e) => {
-    setter(e.target.value);
-    if (inputErrors[field]) {
-      setInputErrors((prevErrors) => ({ ...prevErrors, [field]: false }));
+      navigate('/'); // Перенаправляем на домашнюю страницу
+    } catch (error) {
+      setError('Ошибка авторизации. Попробуйте еще раз.');
     }
   };
 
@@ -64,30 +41,25 @@ const Signin = () => {
       <ContainerSignin>
         <Modal>
           <ModalBlock>
-            <ModalTitle>
-              <h2>Вход</h2>
-            </ModalTitle>
+            <ModalTitle>Вход</ModalTitle>
             <ModalFormLogin onSubmit={handleLogin}>
               <ModalInput
                 type="text"
                 value={login}
-                onChange={handleInputChange(setLogin, 'login')}
+                onChange={(e) => setLogin(e.target.value)}
                 placeholder="Логин"
-                hasError={inputErrors.login} // Передаем статус ошибки для подсветки
+                required
               />
               <ModalInput
                 type="password"
                 value={password}
-                onChange={handleInputChange(setPassword, 'password')}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Пароль"
-                hasError={inputErrors.password} // Передаем статус ошибки для подсветки
+                required
               />
               {error && <ErrorMessage>{error}</ErrorMessage>}
               <ModalButton type="submit">Войти</ModalButton>
-              <ModalFormGroup>
-                <p>Еще нет аккаунта? <Link to="/signup">Зарегистрируйтесь здесь</Link></p>
-              </ModalFormGroup>
-            </ModalFormLogin> 
+            </ModalFormLogin>
           </ModalBlock>
         </Modal>
       </ContainerSignin>

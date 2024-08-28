@@ -6,6 +6,9 @@ const getToken = () => {
 // Функция для получения списка задач
 export const fetchTasks = async () => {
   const token = getToken(); // Получаем токен из localStorage
+  if (!token) {
+    throw new Error('No token found');
+  }
   try {
     const response = await fetch('https://wedev-api.sky.pro/api/kanban', {
       headers: {

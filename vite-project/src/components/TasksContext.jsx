@@ -9,17 +9,38 @@ export const TasksProvider = ({ children }) => {
 
   useEffect(() => {
     const loadTasks = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        console.log('No token found, stopping loading process');
+        setLoading(false);
+        return;
+      }
       try {
+        console.log('Loading tasks...');
         const fetchedTasks = await fetchTasks();
+        console.log('Tasks loaded:', fetchedTasks);
         setTasks(fetchedTasks);
       } catch (error) {
         console.error('Failed to load tasks:', error);
       } finally {
+        console.log('Setting loading to false');
         setLoading(false);
       }
     };
 
-    loadTasks();
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      loadTasks();
+    } else {
+      console.log('Waiting for token to be saved...');
+      const intervalId = setInterval(() => {
+        const savedToken = localStorage.getItem('authToken');
+        if (savedToken) {
+          clearInterval(intervalId);
+          loadTasks();
+        }
+      }, 500); // проверка каждые 500 мс
+    }
   }, []);
 
   const addTask = async (newTask) => {
