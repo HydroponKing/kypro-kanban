@@ -137,7 +137,8 @@ export const Input = styled.input`
   outline: none;
   margin-bottom: 20px;
   background: transparent;
-  
+  color: rgba(148, 166, 190, 0.4); 
+
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -155,6 +156,7 @@ export const Textarea = styled.textarea`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   background: transparent;
+  color: rgba(148, 166, 190, 0.4); 
   
   &::placeholder {
     font-weight: 400;
@@ -163,7 +165,6 @@ export const Textarea = styled.textarea`
     letter-spacing: -0.14px;
   }
 `;
-
 export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -188,10 +189,12 @@ export const ButtonGroup = styled.div`
 export const FormRow = styled.div`
   display: flex;
   gap: 20px;
+  
 `;
 
 export const LeftColumn = styled.div`
   flex: 1;
+  
 `;
 
 export const DateSection = styled.div`
@@ -199,6 +202,7 @@ export const DateSection = styled.div`
   text-align: left;
   display: flex;
   flex-direction: column;
+  
 `;
 export const ErrorMessage = styled.p`
   color: red;

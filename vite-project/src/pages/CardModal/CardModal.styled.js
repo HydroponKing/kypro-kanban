@@ -144,7 +144,7 @@ export const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   font-weight: 500;
-
+ margin-left: 190px;
   &:hover {
     background-color: #33399b;
   }

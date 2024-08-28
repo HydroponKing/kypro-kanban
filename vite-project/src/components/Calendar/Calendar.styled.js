@@ -6,7 +6,7 @@ export const CalendarContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-left: 20px;
+
 `;
 
 // Заголовок даты
