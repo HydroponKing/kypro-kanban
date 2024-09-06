@@ -41,7 +41,6 @@ export const CustomDayPicker = styled(DayPicker)`
   .rdp-caption_label {
     font-size: 18px;
     text-transform: capitalize;
-    margin-bottom: 7px;
   }
 
   .rdp-tbody {
