@@ -67,5 +67,6 @@ export const FooterText = styled.p`
   span {
     color: #000;
     font-size: 12px;
+    line-height: 2;
   }
 `;
