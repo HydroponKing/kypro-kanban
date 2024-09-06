@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TasksContext } from '../../components/TasksContext';
-import { format } from 'date-fns';
 import {
   EditTaskWrapper,
   EditTaskContainer,
@@ -111,12 +110,6 @@ const EditTask = () => {
                   />
                 </DateSection>
               </FormRow>
-              {/* Убираем лишнюю надпись "Срок исполнения" */}
-              {selectedDate && (
-                <p style={{ color: '#94A6BE', marginTop: '10px', fontSize: '12px' }}>
-                  Срок исполнения: {format(selectedDate, 'dd.MM.yyyy')}
-                </p>
-              )}
               <FormGroup>
                 <TagTitle>Категория</TagTitle>
                 <TagContainer>

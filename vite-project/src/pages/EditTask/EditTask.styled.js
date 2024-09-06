@@ -133,11 +133,11 @@ export const Input = styled.input`
   padding: 14px;
   font-size: 14px;
   border-radius: 8px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 1px solid #d3d3d3 !important;;
   outline: none;
   margin-bottom: 20px;
   background: transparent;
-  color: rgba(148, 166, 190, 0.4); 
+  color: #000; /* Черный цвет текста */
 
   &::placeholder {
     font-weight: 400;
@@ -146,6 +146,7 @@ export const Input = styled.input`
     letter-spacing: -0.14px;
   }
 `;
+
 
 export const Textarea = styled.textarea`
   width: 100%;
@@ -153,11 +154,11 @@ export const Textarea = styled.textarea`
   padding: 14px;
   font-size: 14px;
   border-radius: 8px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 1px solid #d3d3d3 !important;;
   outline: none;
   background: transparent;
-  color: rgba(148, 166, 190, 0.4); 
-  
+  color: #000; /* Черный цвет текста */
+
   &::placeholder {
     font-weight: 400;
     font-size: 14px;
@@ -165,6 +166,7 @@ export const Textarea = styled.textarea`
     letter-spacing: -0.14px;
   }
 `;
+
 export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
