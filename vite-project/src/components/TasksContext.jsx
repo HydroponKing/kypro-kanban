@@ -11,19 +11,14 @@ export const TasksProvider = ({ children }) => {
     const loadTasks = async () => {
       const token = localStorage.getItem('authToken');
       if (!token) {
-        console.log('No token found, stopping loading process');
         setLoading(false);
         return;
       }
       try {
-        console.log('Loading tasks...');
         const fetchedTasks = await fetchTasks();
-        console.log('Tasks loaded:', fetchedTasks);
         setTasks(fetchedTasks);
       } catch (error) {
-        console.error('Failed to load tasks:', error);
       } finally {
-        console.log('Setting loading to false');
         setLoading(false);
       }
     };
@@ -32,7 +27,6 @@ export const TasksProvider = ({ children }) => {
     if (token) {
       loadTasks();
     } else {
-      console.log('Waiting for token to be saved...');
       const intervalId = setInterval(() => {
         const savedToken = localStorage.getItem('authToken');
         if (savedToken) {

@@ -17,13 +17,10 @@ export const UserProvider = ({ children }) => {
       }
 
       try {
-        console.log('Loading user info...');
         const userInfo = await fetchUserInfo(); // Получаем данные о пользователе из API
         if (userInfo && userInfo.login) {
           setUser(userInfo);
-          console.log('User info loaded:', userInfo);
         } else {
-          console.log('User not found');
         }
       } catch (error) {
         console.error('Failed to load user info:', error);
