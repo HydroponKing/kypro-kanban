@@ -18,16 +18,16 @@ const customLocale = {
   },
 };
 
-const Calendar = ({ selectedDate, onDateChange }) => {
+const Calendar = ({ selectedDate, onDateChange }) => {  // Исправлено на onDateChange
   return (
     <Styled.CalendarContainer>
       <Styled.DateLabel>Даты</Styled.DateLabel>
       <Styled.CustomDayPicker
         mode="single"
         selected={selectedDate}
-        onSelect={onDateChange}
-        locale={customLocale}  // Применяем кастомную локализацию
-        weekStartsOn={1}  // Неделя начинается с понедельника
+        onSelect={onDateChange}  // Исправлено на onSelect
+        locale={customLocale}
+        weekStartsOn={1}
       />
       <Styled.FooterText>
         Срок исполнения:

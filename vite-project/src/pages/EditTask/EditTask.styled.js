@@ -197,7 +197,8 @@ export const LeftColumn = styled.div`
 `;
 
 export const DateSection = styled.div`
-  width: 160px;
+  margin-top: 8px;
+  width: 180px;
   text-align: left;
   display: flex;
   flex-direction: column;

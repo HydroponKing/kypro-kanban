@@ -28,7 +28,7 @@ const EditTask = () => {
   const { addTask } = useContext(TasksContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Установим текущую дату по умолчанию
   const [topic, setTopic] = useState('Research');
   const [errors, setErrors] = useState({});
 
@@ -107,14 +107,9 @@ const EditTask = () => {
                 <DateSection>
                   <Calendar
                     selectedDate={selectedDate}
-                    onDateSelect={setSelectedDate}
+                    onDateChange={setSelectedDate} // Передаем функцию для изменения даты
                     title="Даты"
                   />
-                  {selectedDate && (
-                    <p style={{ color: '#94A6BE', marginTop: '10px', fontSize: '10px' }}>
-                      Срок исполнения: {format(selectedDate, 'dd.MM.yyyy')}
-                    </p>
-                  )}
                 </DateSection>
               </FormRow>
               <FormGroup>
