@@ -39,14 +39,14 @@ export const TagContainer = styled.div`
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
-  margin-bottom: 20px;
-`;
+`; 
 
 export const TagTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
   color: black;
   margin-bottom: 16px;
+  margin-top: 16px;
 `;
 
 export const EditTaskWrapper = styled.div`
@@ -97,10 +97,10 @@ export const EditTaskContent = styled.div`
 
 export const EditTaskTitle = styled.h3`
   color: #000;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 24px;
-  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 29px;
+  margin-bottom: 18px;
 `;
 
 export const EditTaskClose = styled.a`
@@ -116,20 +116,20 @@ export const EditTaskClose = styled.a`
 `;
 
 export const FormGroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   
   label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     font-weight: bold;
     color: #000;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 300;
   }
 `;
 
 export const Input = styled.input`
-  width: 100%;
+  width: 95%;
   padding: 14px;
   font-size: 14px;
   border-radius: 8px;
@@ -148,8 +148,8 @@ export const Input = styled.input`
 `;
 
 export const Textarea = styled.textarea`
-  width: 100%;
-  height: 150px;
+  width: 95%;
+  height: 200px;
   padding: 14px;
   font-size: 14px;
   border-radius: 8px;
@@ -168,11 +168,10 @@ export const Textarea = styled.textarea`
 export const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
 
   button {
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 8px 20px;
+    font-size: 11,5px;
     cursor: pointer;
     border: none;
     border-radius: 4px;
