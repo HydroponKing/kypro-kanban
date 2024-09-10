@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TasksContext } from '../../components/TasksContext';
-import { format } from 'date-fns';
 import {
   EditTaskWrapper,
   EditTaskContainer,
