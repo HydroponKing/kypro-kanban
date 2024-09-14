@@ -1,41 +1,11 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { fetchTasks, createTask, updateTask, deleteTask } from '../api';
+import React, { createContext, useState } from 'react';
+import { createTask, updateTask, deleteTask } from '../api'; // Добавляем импорт createTask, updateTask, deleteTask
 
 export const TasksContext = createContext();
 
 export const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadTasks = async () => {
-      const token = localStorage.getItem('authToken');
-      if (!token) {
-        setLoading(false);
-        return;
-      }
-      try {
-        const fetchedTasks = await fetchTasks();
-        setTasks(fetchedTasks);
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      loadTasks();
-    } else {
-      const intervalId = setInterval(() => {
-        const savedToken = localStorage.getItem('authToken');
-        if (savedToken) {
-          clearInterval(intervalId);
-          loadTasks();
-        }
-      }, 500); // проверка каждые 500 мс
-    }
-  }, []);
 
   const addTask = async (newTask) => {
     try {
@@ -45,7 +15,6 @@ export const TasksProvider = ({ children }) => {
       console.error('Failed to add task:', error);
     }
   };
-  
 
   const editTask = async (taskId, updatedTask) => {
     try {
@@ -66,7 +35,7 @@ export const TasksProvider = ({ children }) => {
   };
 
   return (
-    <TasksContext.Provider value={{ tasks, addTask, editTask, removeTask, loading }}>
+    <TasksContext.Provider value={{ tasks, setTasks, addTask, editTask, removeTask, loading, setLoading }}>
       {children}
     </TasksContext.Provider>
   );
