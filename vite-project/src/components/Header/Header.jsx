@@ -1,45 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PopUser from '../popups/PopUser/PopUser';
-import { HeaderWrapper, Container, HeaderBlock, Logo, HeaderNav, HeaderButton, HeaderUser } from './Header.styled';
+import { HeaderWrapper, Container, HeaderBlock, LogoLight, LogoDark, HeaderNav, HeaderButton, HeaderUser } from './Header.styled';
+import { UserContext } from '../UserContext';
 
-const Header = ({ onCardAdd }) => {
+const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleUserClick = () => {
     setIsModalOpen(!isModalOpen);
   };
 
   const handleAddTaskClick = () => {
-    const newCard = {
-      id: Date.now(),
-      topic: 'Web Design',
-      title: 'Новая задача',
-      date: new Date().toISOString().split('T')[0],
-      status: 'Без статуса'
-    };
-    onCardAdd(newCard);
+    navigate('/edit-task/new'); // Переход на страницу создания новой задачи
   };
 
   return (
     <HeaderWrapper>
       <Container>
         <HeaderBlock>
-          <Logo className="header__logo _show _light">
+          <LogoLight>
             <a href="" target="_self">
               <img alt="logo" src="public/logo.png" />
             </a>
-          </Logo>
-          <Logo className="header__logo _dark">
+          </LogoLight>
+          <LogoDark>
             <a href="" target="_self">
               <img alt="logo" src="public/logo_dark.png" />
             </a>
-          </Logo>
+          </LogoDark>
           <HeaderNav>
             <HeaderButton id="btnMainNew" onClick={handleAddTaskClick}>
               Создать новую задачу
             </HeaderButton>
             <HeaderUser onClick={handleUserClick}>
-              Ivan Ivanov
+              {user ? user.name : 'Загрузка...'}
             </HeaderUser>
             {isModalOpen && <PopUser onClose={handleUserClick} />}
           </HeaderNav>

@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './PopUser.css';
+import { UserModal, UserModalContent, PopUserName, PopUserMail, LogoutButton } from './PopUser.styled';
+import { UserContext } from '../../UserContext';
 
 const PopUser = ({ onClose }) => {
   const navigate = useNavigate();
+  const { user, loading } = useContext(UserContext);
 
   const handleLogoutClick = () => {
-    onClose(); // Закрыть модальное окно
-    navigate('/exit'); // Перенаправить на страницу выхода
+    onClose();
+    navigate('/exit');
   };
 
+  if (loading) {
+    return <p>Загрузка...</p>;
+  }
+
+  if (!user) {
+    return <p>Пользователь не найден</p>; // Если пользователь не найден, отображаем сообщение
+  }
+
   return (
-    <div className="user-modal">
-      <div className="user-modal-content">
-        <p className="pop-user-set__name">Ivan Ivanov</p>
-        <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-        <div className="pop-user-set__theme">
-          <p>Темная тема</p>
-          <input className="checkbox" name="checkbox" type="checkbox" />
-        </div>
-        <button type="button" onClick={handleLogoutClick}>Выйти</button>
-      </div>
-    </div>
+    <UserModal>
+      <UserModalContent>
+        <PopUserName>{user.login}</PopUserName>
+        <PopUserMail>{`${user.login}@gmail.com`}</PopUserMail>
+        <LogoutButton type="button" onClick={handleLogoutClick}>Выйти</LogoutButton>
+      </UserModalContent>
+    </UserModal>
   );
 };
 

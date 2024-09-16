@@ -1,41 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Main from '../../components/Main/Main';
-import PopBrowse from '../../components/popups/PopBrowse/PopBrowse';
 import Loader from '../../components/Loader/Loader';
 import { Outlet } from 'react-router-dom';
-import { fetchTasks } from '../../api';
+import { TasksContext } from '../../components/TasksContext';
+import { fetchTasks } from '../../api'; // Импорт функции fetchTasks для загрузки задач
 
 const HomePage = ({ onLogout }) => {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { tasks, setTasks, loading, setLoading } = useContext(TasksContext); // Теперь используем setTasks для обновления задач в контексте
 
   useEffect(() => {
     const loadTasks = async () => {
+      setLoading(true); // Показываем лоадер
       try {
-        const fetchedTasks = await fetchTasks();
-        setCards(fetchedTasks);
+        const fetchedTasks = await fetchTasks(); // Загружаем задачи
+        setTasks(fetchedTasks); // Обновляем задачи в контексте
       } catch (error) {
-        console.error('Error loading tasks:', error);
+        console.error('Failed to fetch tasks:', error);
       } finally {
-        setLoading(false);
+        setLoading(false); // Скрываем лоадер
       }
     };
 
-    loadTasks();
-  }, []);
+    loadTasks(); // Загружаем задачи при монтировании компонента
+  }, [setTasks, setLoading]); // Хук срабатывает при первом рендере
 
   if (loading) {
-    return <Loader />; // Обновленный Loader без пропсов
+    return <Loader />;
   }
-
 
   return (
     <>
-      <Header onCardAdd={(newCard) => setCards([...cards, { ...newCard, status: 'Без статуса' }])} onLogout={onLogout} />
-      <Main cards={cards} />
-      <PopBrowse />
-      <Outlet context={{ cards }} />
+      <Header onCardAdd={(newCard) => addTask({ ...newCard, status: 'Без статуса' })} onLogout={onLogout} />
+      <Main cards={tasks} />
+      <Outlet />
     </>
   );
 };

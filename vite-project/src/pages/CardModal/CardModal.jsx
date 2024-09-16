@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Calendar from '../../components/Calendar/Calendar';
+import { TasksContext } from '../../components/TasksContext';
+import { fetchTaskById } from '../../api';
 import {
   CardModalWrapper,
   CardModalContainer,
@@ -21,11 +22,12 @@ import {
   DeleteButton,
   CloseButton,
 } from './CardModal.styled';
-import { fetchTaskById } from '../../api';
+import Calendar from '../../components/Calendar/Calendar';
 
 const CardModal = () => {
-  const { cardId } = useParams(); // Получаем ID карточки из URL
+  const { cardId } = useParams();
   const navigate = useNavigate();
+  const { removeTask } = useContext(TasksContext);
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +35,6 @@ const CardModal = () => {
     const loadCard = async () => {
       try {
         const fetchedCard = await fetchTaskById(cardId);
-        console.log('Fetched Card:', fetchedCard); // Добавляем логирование для проверки
         setCard(fetchedCard);
       } catch (error) {
         console.error('Error fetching card:', error);
@@ -50,11 +51,24 @@ const CardModal = () => {
   }
 
   if (!card) {
-    return <p>Карточка не найдена</p>; // Если карточка не найдена
+    return <p>Карточка не найдена</p>;
   }
 
   const handleClose = () => {
     navigate(-1);
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit-task-modal/${cardId}`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await removeTask(cardId);
+      navigate(-1);
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   return (
@@ -82,17 +96,21 @@ const CardModal = () => {
                 id="textArea01"
                 name="text"
                 placeholder="Описание задачи"
-                value={card.description || 'Описание отсутствует'} // Используем описание задачи из API
+                value={card.description || 'Описание отсутствует'}
                 readOnly
               />
             </FormBlock>
           </CardModalForm>
-          <Calendar /> {/* Календарь с датами */}
+          <Calendar
+            selectedDate={new Date(card.date)}
+            onDateSelect={() => {}}
+            title="Срок исполнения"
+          />
         </CardModalWrap>
 
         <ButtonGroup>
-          <EditButton>Редактировать задачу</EditButton>
-          <DeleteButton>Удалить задачу</DeleteButton>
+          <EditButton onClick={handleEdit}>Редактировать задачу</EditButton>
+          <DeleteButton onClick={handleDelete}>Удалить задачу</DeleteButton>
           <CloseButton onClick={handleClose}>Закрыть</CloseButton>
         </ButtonGroup>
       </CardModalContainer>

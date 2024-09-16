@@ -1,111 +1,73 @@
 import styled from 'styled-components';
+import { DayPicker } from 'react-day-picker';
 
-export const CalendarWrapper = styled.div`
-  width: 182px;
-  margin-bottom: 20px;
+// Обёртка для календаря
+export const CalendarContainer = styled.div`
+  display: flex; /* Включает гибкую модель для выравнивания дочерних элементов */
+  flex-direction: column ; /* Указывает, что элементы будут располагаться вертикально */
+  gap: 17px; /* Устанавливает промежуток в 14 пикселей между элементами */
 `;
 
-export const CalendarTitle = styled.p`
-  margin-bottom: 14px;
-  color: #000;
-  font-size: 14px;
-  font-weight: 600;
+// Заголовок даты
+export const DateLabel = styled.p`
+  font-weight: bold; /* Делает текст жирным */
+  font-size: 14px; /* Устанавливает размер шрифта в 14 пикселей */
+  line-height: 1px; /* Очень маленькое межстрочное расстояние */
+  text-align: left; /* Выравнивает текст по левому краю */
+  padding-bottom: 8px;
 `;
 
-export const CalendarBlock = styled.div`
-  display: block;
-`;
+// Стили для компонента DayPicker
+export const CustomDayPicker = styled(DayPicker)`
+  --rdp-day-width: 25px; /* Ширина ячейки с днём */
+  --rdp-day-height: 25px; /* Высота ячейки с днём */
+  --rdp-day-font: 10px 'Roboto', sans-serif; /* Шрифт и размер для ячеек с днями */
+  --rdp-accent-color: gray !important; /* Цвет выделенных дней и акцентных элементов */
+  --rdp-accent-background-color: gray !important; /* Цвет фона для выделенных дней */
+  --rdp-day_button-border-radius: 500%; /* Округление кнопок-дней до круга */
+  --rdp-nav_button-width: 19px; /* Ширина кнопок навигации */
+  --rdp-nav_button-height: 19px; /* Высота кнопок навигации */
+  --rdp-nav-height: 19px;
+  --rdp-month_caption-font: 18px; /* Размер шрифта для заголовка месяца */
+  --rdp-today-color: blue; /* Цвет для сегодняшней даты */
 
-export const CalendarNav = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 14px;
-`;
+  
 
-export const CalendarMonth = styled.div`
-  color: #94a6be;
-  font-size: 14px;
-  font-weight: 600;
-`;
+  
+  color: #94a6be; /* Основной цвет текста */
 
-export const NavActions = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const NavAction = styled.div`
-  width: 18px;
-  height: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const CalendarContent = styled.div`
-  margin-bottom: 12px;
-`;
-
-export const CalendarDayNames = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 7px 0;
-`;
-
-export const CalendarDayName = styled.div`
-  color: #94a6be;
-  font-size: 10px;
-  font-weight: 500;
-
-  &.-weekend- {
-    color: #ff6d00;
-  }
-`;
-
-export const CalendarCells = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const CalendarCell = styled.div`
-  width: 22px;
-  height: 22px;
-  margin: 2px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #94a6be;
-  font-size: 10px;
-  cursor: pointer;
-
-  &._other-month {
-    opacity: 0.4;
+  .rdp-day_today:not(.rdp-day_outside), /* Стили для текущего дня, если он не вне текущего месяца */
+  .rdp-day_today.rdp-day {
+    font-weight: bold !important; /* Делаем сегодняшнюю дату жирной */
+    border: 16px solid #94a6be !important; /* Выделение границы для сегодняшнего дня */
+  } 
+  .rdp-caption_label {
+    font-size: 16px; /* Устанавливает размер шрифта заголовка месяца */
+    text-transform: capitalize; /* Преобразует первую букву в заглавную */
+    margin-bottom: 7px; /* Добавляет отступ снизу для заголовка */
+    align-items: flex-start ;
   }
 
-  &._cell-day:hover {
-    background-color: #EAEEF6; /* Исправленный цвет */
+  .rdp-tbody {
+    font-size: 16px; /* Размер шрифта для таблицы дней */
   }
 
-  &._active-day {
-    background-color: #94a6be;
-    color: #ffffff;
-  }
 
-  &._current {
-    font-weight: 700;
-  }
+
 `;
 
-export const CalendarPeriod = styled.p`
-  color: #94a6be;
-  font-size: 10px;
+// Стили для текста внизу календаря
+export const FooterText = styled.p`
+  font-size: 12px; /* Размер шрифта для текста в подвале */
+  line-height: 0px; /* Межстрочное расстояние */
+  color: #94a6be; /* Цвет текста */
 
   span {
-    color: #000;
+    color: #000; /* Цвет текста внутри span */
+    font-size: 12px; /* Размер шрифта для текста внутри span */
   }
+
+
+
 `;
+
